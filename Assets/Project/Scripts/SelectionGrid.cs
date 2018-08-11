@@ -20,6 +20,8 @@ namespace Project
         LayoutGroup layout;
         [SerializeField]
         Selector selector;
+        [SerializeField]
+        InventoryCollection inventories;
 
         [Header("Test variables, to remove")]
         [SerializeField]
@@ -79,6 +81,14 @@ namespace Project
                 return grid;
             }
         }
+
+        public bool CanSelect
+        {
+            get
+            {
+                return cursor.IsDragging;
+            }
+        }
         #endregion
 
         // Use this for initialization
@@ -119,8 +129,8 @@ namespace Project
                 {
                     ReplaceBlocks(CurrentlySelectedSelector);
                     CurrentlySelectedSelector.SetHovered(false);
+                    inventories.HoveredInventory = null;
                 }
-                cursor.SelectedInventory = null;
             }
         }
 

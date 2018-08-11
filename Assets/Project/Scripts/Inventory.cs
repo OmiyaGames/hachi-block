@@ -2,11 +2,13 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using Community.UI;
+using OmiyaGames;
 
 namespace Project
 {
-    public class Inventory : MonoBehaviour
+    public class Inventory : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
         [SerializeField]
         Image topLeft;
@@ -17,10 +19,13 @@ namespace Project
         [SerializeField]
         Image bottomRight;
 
+        [Header("Collections")]
         [SerializeField]
         BlockCollection allBlocks;
         [SerializeField]
         BlockCursor cursor;
+        [SerializeField]
+        InventoryCollection collection;
 
         [Header("Debug Info")]
         [SerializeField]
@@ -109,9 +114,24 @@ namespace Project
             }
         }
 
+        public void OnSelect(BaseEventData eventData)
+        {
+            collection.HoveredInventory = this;
+        }
+
+        public void OnDeselect(BaseEventData eventData)
+        {
+            if(collection.HoveredInventory != this)
+            {
+                collection.HoveredInventory = null;
+            }
+        }
+
         public void OnClick()
         {
             cursor.SelectedInventory = this;
+            //collection.HoveredInventory = null;
+            //Singleton.Get<EventSystem>().SetSelectedGameObject(null);
         }
 
         private static void UpdateImage(Image image, Block prefab)

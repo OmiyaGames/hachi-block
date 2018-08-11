@@ -182,45 +182,6 @@ Prefab:
       propertyPath: m_isInputParsingRequired
       value: 1
       objectReference: {fileID: 0}
-    - target: {fileID: 114613436491314024, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: cursor
-      value: 
-      objectReference: {fileID: 1031800848}
-    - target: {fileID: 114709896212693882, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: cursor
-      value: 
-      objectReference: {fileID: 1031800848}
-    - target: {fileID: 114762263405186350, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: cursor
-      value: 
-      objectReference: {fileID: 1031800848}
-    - target: {fileID: 114469215904087294, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: cursor
-      value: 
-      objectReference: {fileID: 1031800848}
-    - target: {fileID: 114278680998592134, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: cursor
-      value: 
-      objectReference: {fileID: 1031800848}
-    - target: {fileID: 95673897889350570, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: m_Controller
-      value: 
-      objectReference: {fileID: 9100000, guid: c187171d43e82e84588f96293d06ce2e, type: 2}
-    - target: {fileID: 1038057665891362, guid: ad3bf00b51f1b8e499e121f157640d9c, type: 2}
-      propertyPath: m_IsActive
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 225589846735819694, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: m_Alpha
-      value: 1
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad3bf00b51f1b8e499e121f157640d9c, type: 2}
   m_IsPrefabAsset: 0
@@ -631,12 +592,6 @@ RectTransform:
   m_CorrespondingSourceObject: {fileID: 224652716824725696, guid: 873d985b771b5ad4d92bf58ce8f2618e,
     type: 2}
   m_PrefabInternal: {fileID: 534172345}
---- !u!114 &1031800848 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 114644571116447880, guid: ad3bf00b51f1b8e499e121f157640d9c,
-    type: 2}
-  m_PrefabInternal: {fileID: 84986822}
-  m_Script: {fileID: 11500000, guid: 6b7bff226868d0c459622bd8ba49c819, type: 3}
 --- !u!224 &1071108361 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 22440622, guid: 9c21726528fb646faada8f5b717daf17,
