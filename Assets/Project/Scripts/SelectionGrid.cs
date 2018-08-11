@@ -108,6 +108,24 @@ namespace Project
             }
         }
 
+        private void Update()
+        {
+            // Check if the mouse button is up
+            if ((Input.GetMouseButtonUp(0) == true) && (CurrentlySelectedSelector != null))
+            {
+                ReplaceBlocks(CurrentlySelectedSelector);
+                CurrentlySelectedSelector.SetHovered(false);
+            }
+        }
+
+        public void ReplaceBlocks(Selector selector)
+        {
+            if (selector != null)
+            {
+                ReplaceBlocks(selector.GridPosition);
+            }
+        }
+
         public void ReplaceBlocks(Vector2Int position)
         {
             BlockGrid.CreateBlock(block, position);

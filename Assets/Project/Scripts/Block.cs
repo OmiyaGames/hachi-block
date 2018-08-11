@@ -17,6 +17,8 @@ namespace Project
 
         [SerializeField]
         BlockType type;
+        [SerializeField]
+        SpriteRenderer graphic;
 
         [Header("Debugging Info")]
         [SerializeField]
@@ -41,6 +43,14 @@ namespace Project
             set
             {
                 gridPosition = value;
+            }
+        }
+
+        public Sprite Graphic
+        {
+            get
+            {
+                return graphic.sprite;
             }
         }
 
