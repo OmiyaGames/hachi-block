@@ -22,5 +22,13 @@ namespace Project
             get;
             set;
         }
+
+        public void ShuffleAll()
+        {
+            foreach(Inventory inventory in AllInventories)
+            {
+                inventory.Shuffle();
+            }
+        }
     }
 }

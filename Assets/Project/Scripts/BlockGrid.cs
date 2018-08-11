@@ -23,9 +23,14 @@ namespace Project
         [SerializeField]
         Color gizmoColor = Color.cyan;
         [SerializeField]
+        Transform gridBackgroundParent;
+        [SerializeField]
+        GameObject emptyCell;
+        [SerializeField]
         BlockCollection allBlocks;
 
         Block[,] grid = null;
+        GameObject[] allBackgroundCells = null;
 
         #region Properties
         /// <summary>
@@ -92,6 +97,16 @@ namespace Project
 
         private void Start()
         {
+            allBackgroundCells = new GameObject[Width * Height];
+            for (int x = 0; x < Width; ++x)
+            {
+                for (int y = 0; y < Height; ++y)
+                {
+                    GameObject newCell = Instantiate<GameObject>(emptyCell, ConvertGridToWorldPosition(x, y), Quaternion.identity);
+                    newCell.transform.SetParent(gridBackgroundParent);
+                    allBackgroundCells[y + (x * Height)] = newCell;
+                }
+            }
             AllBlocks.FillGrid(this, Height);
         }
 
@@ -123,9 +138,20 @@ namespace Project
         /// <returns></returns>
         public Vector3 ConvertGridToWorldPosition(Vector2Int gridPosition)
         {
+            return ConvertGridToWorldPosition(gridPosition.x, gridPosition.y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
+        public Vector3 ConvertGridToWorldPosition(int x, int y)
+        {
             Vector3 returnPosition = transform.position;
-            returnPosition.x += ConvertGridToWorldUnit(gridPosition.x, Width);
-            returnPosition.y += ConvertGridToWorldUnit(gridPosition.y, Height);
+            returnPosition.x += ConvertGridToWorldUnit(x, Width);
+            returnPosition.y += ConvertGridToWorldUnit(y, Height);
             return returnPosition;
         }
 
