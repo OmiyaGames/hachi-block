@@ -22,6 +22,12 @@ namespace Project
         [ReadOnly]
         Vector2Int gridPosition = new Vector2Int(-1, -1);
 
+        public SelectionGrid Grid
+        {
+            get;
+            set;
+        }
+
         public Vector2Int GridPosition
         {
             get
@@ -34,25 +40,45 @@ namespace Project
             }
         }
 
-        public SelectionGrid Grid
+        public bool IsSelected
         {
-            get;
-            set;
+            get
+            {
+                return (Grid.CurrentlySelectedSelector == this);
+            }
         }
 
-        //public void OnSelect(BaseEventData eventData)
-        //{
-        //    hoverImage.SetBool(visibilityFlag, true);
-        //}
-
-        //public void OnDeselect(BaseEventData eventData)
-        //{
-        //    hoverImage.SetBool(visibilityFlag, false);
-        //}
-
-        public void SetVisible(bool visible)
+        public bool IsVisible
         {
-            hoverImage.SetBool(visibilityFlag, visible);
+            get
+            {
+                return hoverImage.GetBool(visibilityFlag);
+            }
+            set
+            {
+                hoverImage.SetBool(visibilityFlag, value);
+            }
+        }
+
+        public void SetHovered(bool isHovered)
+        {
+            if(isHovered == true)
+            {
+                Grid.CurrentlySelectedSelector = this;
+            }
+            else if(IsSelected == true)
+            {
+                Grid.CurrentlySelectedSelector = null;
+            }
+        }
+
+        public void OnPointerUp()
+        {
+            Debug.Log("ReplaceBlocks called");
+            if (IsSelected == true)
+            {
+                Grid.ReplaceBlocks(GridPosition);
+            }
         }
     }
 }

@@ -19,12 +19,18 @@ namespace Project
         [SerializeField]
         Selector selector;
 
+        [Header("Test variables, to remove")]
+        [SerializeField]
+        Block block;
+
+        Selector currentlySelectedSelector = null;
+
         #region Properties
         public int UiWidth
         {
             get
             {
-                return (grid.Width - 1);
+                return (BlockGrid.Width - 1);
             }
         }
 
@@ -32,7 +38,7 @@ namespace Project
         {
             get
             {
-                return (grid.Height - 1);
+                return (BlockGrid.Height - 1);
             }
         }
 
@@ -40,7 +46,35 @@ namespace Project
         {
             get
             {
-                return (grid.CellLength * canvas.referencePixelsPerUnit);
+                return (BlockGrid.CellLength * canvas.referencePixelsPerUnit);
+            }
+        }
+
+        public Selector CurrentlySelectedSelector
+        {
+            get
+            {
+                return currentlySelectedSelector;
+            }
+            set
+            {
+                if (CurrentlySelectedSelector != null)
+                {
+                    CurrentlySelectedSelector.IsVisible = false;
+                }
+                currentlySelectedSelector = value;
+                if (CurrentlySelectedSelector != null)
+                {
+                    CurrentlySelectedSelector.IsVisible = true;
+                }
+            }
+        }
+
+        public BlockGrid BlockGrid
+        {
+            get
+            {
+                return grid;
             }
         }
         #endregion
@@ -48,6 +82,8 @@ namespace Project
         // Use this for initialization
         void Start()
         {
+            CurrentlySelectedSelector = null;
+
             RectTransform canvasTransform = canvas.transform as RectTransform;
             if (canvasTransform != null)
             {
@@ -60,12 +96,27 @@ namespace Project
             {
                 for (int x = 0; x < UiWidth; ++x)
                 {
+                    // Clone the selector!
                     clone = Instantiate(selector.gameObject, layout.transform);
                     clone.transform.localScale = Vector3.one;
+
+                    // Setup the script!
                     clonedScript = clone.GetComponent<Selector>();
                     clonedScript.GridPosition = new Vector2Int(x, y);
+                    clonedScript.Grid = this;
                 }
             }
+        }
+
+        public void ReplaceBlocks(Vector2Int position)
+        {
+            BlockGrid.CreateBlock(block, position);
+            position.x += 1;
+            BlockGrid.CreateBlock(block, position);
+            position.y += 1;
+            BlockGrid.CreateBlock(block, position);
+            position.x -= 1;
+            BlockGrid.CreateBlock(block, position);
         }
     }
 }

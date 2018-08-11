@@ -143,6 +143,7 @@ MonoBehaviour:
   canvas: {fileID: 114285892533622934}
   layout: {fileID: 114952647853652468}
   selector: {fileID: 114286519652925256, guid: 938e4129bafd3bb4fbfb361920e699ba, type: 2}
+  block: {fileID: 114532758656354864, guid: 1d7fe0632567c0142ac56515f1b19222, type: 2}
 --- !u!114 &114940976807705064
 MonoBehaviour:
   m_ObjectHideFlags: 1
