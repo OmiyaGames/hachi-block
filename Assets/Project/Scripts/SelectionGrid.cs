@@ -23,10 +23,6 @@ namespace Project
         [SerializeField]
         InventoryCollection inventories;
 
-        [Header("Test variables, to remove")]
-        [SerializeField]
-        Block block;
-
         Selector currentlySelectedSelector = null;
 
         #region Properties
