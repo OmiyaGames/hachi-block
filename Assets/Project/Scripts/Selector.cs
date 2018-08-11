@@ -71,14 +71,5 @@ namespace Project
                 Grid.CurrentlySelectedSelector = null;
             }
         }
-
-        public void OnPointerUp()
-        {
-            Debug.Log("ReplaceBlocks called");
-            if (IsSelected == true)
-            {
-                Grid.ReplaceBlocks(GridPosition);
-            }
-        }
     }
 }

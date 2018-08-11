@@ -27,7 +27,7 @@ namespace Project
         /// 
         /// </summary>
         /// <returns></returns>
-        public Block RandomBlock()
+        public Block RandomBlockPrefab()
         {
             return allBlockTypes[Random.Range(0, allBlockTypes.Length)];
         }
@@ -38,7 +38,7 @@ namespace Project
             {
                 for (int y = 0; y < grid.Height; ++y)
                 {
-                    grid.CreateBlock(RandomBlock(), x, y);
+                    grid.CreateBlock(RandomBlockPrefab(), x, y);
                 }
             }
         }

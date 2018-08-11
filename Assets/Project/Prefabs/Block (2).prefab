@@ -129,6 +129,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   type: 1
+  graphic: {fileID: 212987301271527476}
   gridPosition: {x: 0, y: 0}
 --- !u!212 &212987301271527476
 SpriteRenderer:
