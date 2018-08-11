@@ -54,3 +54,4 @@ MonoBehaviour:
   allBlockTypes:
   - {fileID: 114532758656354864, guid: 1d7fe0632567c0142ac56515f1b19222, type: 2}
   - {fileID: 114002866386171746, guid: d2b0017c139a6244bb62e8b8d5122bfa, type: 2}
+  - {fileID: 114002866386171746, guid: 2768575f5b3fb8b4a8ffb914fb0ebaac, type: 2}
