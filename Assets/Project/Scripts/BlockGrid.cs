@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using OmiyaGames;
 using OmiyaGames.Global;
 
@@ -11,14 +9,18 @@ namespace Project
         [Header("Grid Dimensions")]
         [SerializeField]
         [UnityEngine.Serialization.FormerlySerializedAs("gridWidth")]
+        [Range(2, 30)]
         int width = 10;
         [SerializeField]
         [UnityEngine.Serialization.FormerlySerializedAs("gridHeight")]
+        [Range(2, 20)]
         int height = 10;
 
         [Header("Cell Dimensions")]
         [SerializeField]
         float cellLength = 0.2f;
+        [SerializeField]
+        Color gizmoColor = Color.cyan;
 
         Block[,] grid = null;
 
@@ -57,6 +59,14 @@ namespace Project
             get
             {
                 return height;
+            }
+        }
+
+        public float CellLength
+        {
+            get
+            {
+                return cellLength;
             }
         }
 
@@ -221,7 +231,27 @@ namespace Project
         #region Helper Methods
         private float ConvertGridToWorldUnit(int unit, int maxUnit)
         {
-            return (unit * cellLength) - (((maxUnit - 1) * cellLength) / 2f);
+            return (unit * CellLength) - (((maxUnit - 1) * CellLength) / 2f);
+        }
+
+        private void OnDrawGizmos()
+        {
+            Vector3 center;
+            Vector3 size = new Vector3(CellLength, CellLength);
+            Vector2Int gridPos = Vector2Int.zero;
+            Gizmos.color = gizmoColor;
+            for (int x = 0; x < Width; ++x)
+            {
+                for (int y = 0; y < Height; ++y)
+                {
+                    gridPos.x = x;
+                    gridPos.y = y;
+
+                    center = ConvertGridToWorldPosition(gridPos);
+
+                    Gizmos.DrawWireCube(center, size);
+                }
+            }
         }
         #endregion
     }
