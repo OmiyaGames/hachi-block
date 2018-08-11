@@ -22,6 +22,8 @@ namespace Project
         float cellLength = 0.2f;
         [SerializeField]
         Color gizmoColor = Color.cyan;
+        [SerializeField]
+        BlockCollection allBlocks;
 
         Block[,] grid = null;
 
@@ -78,7 +80,20 @@ namespace Project
                 return Singleton.Get<PoolingManager>();
             }
         }
+
+        public BlockCollection AllBlocks
+        {
+            get
+            {
+                return allBlocks;
+            }
+        }
         #endregion
+
+        private void Start()
+        {
+            AllBlocks.FillGrid(this, Height);
+        }
 
         /// <summary>
         /// 
