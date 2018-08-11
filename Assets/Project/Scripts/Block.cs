@@ -43,7 +43,7 @@ namespace Project
             }
         }
 
-        public Grid Grid
+        public BlockGrid Grid
         {
             get;
             set;

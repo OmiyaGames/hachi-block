@@ -6,7 +6,7 @@ using OmiyaGames.Global;
 
 namespace Project
 {
-    public class Grid : MonoBehaviour
+    public class BlockGrid : MonoBehaviour
     {
         [Header("Grid Dimensions")]
         [SerializeField]
@@ -26,7 +26,7 @@ namespace Project
         /// <summary>
         /// 
         /// </summary>
-        public Block[,] BlockGrid
+        public Block[,] Blocks
         {
             get
             {
@@ -161,7 +161,7 @@ namespace Project
                 if(IsValidGridPosition(block.GridPosition) == true)
                 {
                     // If so, make sure the grid position is set to null
-                    BlockGrid[block.GridPosition.x, block.GridPosition.y] = null;
+                    Blocks[block.GridPosition.x, block.GridPosition.y] = null;
                 }
 
                 // Update the member variables
@@ -169,7 +169,7 @@ namespace Project
                 block.Grid = this;
 
                 // Set this block location to block
-                BlockGrid[x, y] = block;
+                Blocks[x, y] = block;
             }
             return oldBlock;
         }
@@ -197,12 +197,12 @@ namespace Project
             if (IsValidGridPosition(x, y) == true)
             {
                 // Check if there's a block in this location already
-                oldBlock = BlockGrid[x, y];
+                oldBlock = Blocks[x, y];
                 if (oldBlock != null)
                 {
                     // If there is, return this block to the pool
                     PoolingManager.ReturnToPool(oldBlock);
-                    BlockGrid[x, y] = null;
+                    Blocks[x, y] = null;
                 }
             }
             return oldBlock;
