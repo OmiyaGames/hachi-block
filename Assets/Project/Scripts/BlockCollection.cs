@@ -9,7 +9,7 @@ namespace Project
         [SerializeField]
         Block[] allBlockTypes;
         [SerializeField]
-        Grid grid;
+        BlockGrid grid;
 
         #region Unity Events
         // Use this for initialization
