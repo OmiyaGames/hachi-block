@@ -44,10 +44,7 @@ namespace Project
             private set
             {
                 topLeftBlock = value;
-                if(value != null)
-                {
-                    topLeft.sprite = value.Graphic;
-                }
+                UpdateImage(topLeft, value);
             }
         }
 
@@ -60,10 +57,7 @@ namespace Project
             private set
             {
                 topRightBlock = value;
-                if (value != null)
-                {
-                    topRight.sprite = value.Graphic;
-                }
+                UpdateImage(topRight, value);
             }
         }
 
@@ -76,10 +70,7 @@ namespace Project
             private set
             {
                 bottomLeftBlock = value;
-                if (value != null)
-                {
-                    bottomLeft.sprite = value.Graphic;
-                }
+                UpdateImage(bottomLeft, value);
             }
         }
 
@@ -92,10 +83,7 @@ namespace Project
             private set
             {
                 bottomRightBlock = value;
-                if (value != null)
-                {
-                    bottomRight.sprite = value.Graphic;
-                }
+                UpdateImage(bottomRight, value);
             }
         }
         #endregion
@@ -106,6 +94,15 @@ namespace Project
             TopRightBlock = allBlocks.RandomBlockPrefab();
             BottomLeftBlock = allBlocks.RandomBlockPrefab();
             BottomRightBlock = allBlocks.RandomBlockPrefab();
+        }
+
+        private static void UpdateImage(Image image, Block prefab)
+        {
+            if ((image != null) && (prefab != null))
+            {
+                image.sprite = prefab.Graphic.sprite;
+                image.color = prefab.Graphic.color;
+            }
         }
     }
 }
