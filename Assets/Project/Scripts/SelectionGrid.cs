@@ -10,6 +10,8 @@ namespace Project
     {
         [SerializeField]
         BlockGrid grid;
+        [SerializeField]
+        BlockCursor cursor;
 
         [Header("UI")]
         [SerializeField]
@@ -111,10 +113,14 @@ namespace Project
         private void Update()
         {
             // Check if the mouse button is up
-            if ((Input.GetMouseButtonUp(0) == true) && (CurrentlySelectedSelector != null))
+            if (Input.GetMouseButtonUp(0) == true)
             {
-                ReplaceBlocks(CurrentlySelectedSelector);
-                CurrentlySelectedSelector.SetHovered(false);
+                if (CurrentlySelectedSelector != null)
+                {
+                    ReplaceBlocks(CurrentlySelectedSelector);
+                    CurrentlySelectedSelector.SetHovered(false);
+                }
+                cursor.SelectedInventory = null;
             }
         }
 

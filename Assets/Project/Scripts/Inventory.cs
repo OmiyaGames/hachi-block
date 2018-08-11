@@ -19,6 +19,8 @@ namespace Project
 
         [SerializeField]
         BlockCollection allBlocks;
+        [SerializeField]
+        BlockCursor cursor;
 
         [Header("Debug Info")]
         [SerializeField]
@@ -94,6 +96,22 @@ namespace Project
             TopRightBlock = allBlocks.RandomBlockPrefab();
             BottomLeftBlock = allBlocks.RandomBlockPrefab();
             BottomRightBlock = allBlocks.RandomBlockPrefab();
+        }
+
+        public void Sync(Inventory other)
+        {
+            if (other != null)
+            {
+                TopLeftBlock = other.TopLeftBlock;
+                TopRightBlock = other.TopRightBlock;
+                BottomLeftBlock = other.BottomLeftBlock;
+                BottomRightBlock = other.BottomRightBlock;
+            }
+        }
+
+        public void OnClick()
+        {
+            cursor.SelectedInventory = this;
         }
 
         private static void UpdateImage(Image image, Block prefab)
