@@ -1,36 +1,26 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-using Community.UI;
+using UnityEngine.UI;
+using UnityEngine.EventSystems;
 using OmiyaGames;
+using Community.UI;
 
 namespace Project
 {
     [DisallowMultipleComponent]
-    public class Block : IPooledObject
+    public class Selector : MonoBehaviour, ISelectHandler, IDeselectHandler
     {
-        public enum BlockType
-        {
-            T1,
-            T2
-        }
-
+        [Header("Animation")]
         [SerializeField]
-        BlockType type;
+        Animator hoverImage;
+        [SerializeField]
+        string visibilityFlag = "Visible";
 
         [Header("Debugging Info")]
         [SerializeField]
         [ReadOnly]
         Vector2Int gridPosition = new Vector2Int(-1, -1);
-
-        #region Properties
-        public BlockType Type
-        {
-            get
-            {
-                return type;
-            }
-        }
 
         public Vector2Int GridPosition
         {
@@ -44,11 +34,20 @@ namespace Project
             }
         }
 
-        public BlockGrid Grid
+        public SelectionGrid Grid
         {
             get;
             set;
         }
-        #endregion
+
+        public void OnSelect(BaseEventData eventData)
+        {
+            hoverImage.SetBool(visibilityFlag, true);
+        }
+
+        public void OnDeselect(BaseEventData eventData)
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }
