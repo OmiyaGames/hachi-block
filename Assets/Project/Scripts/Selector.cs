@@ -9,7 +9,7 @@ using Community.UI;
 namespace Project
 {
     [DisallowMultipleComponent]
-    public class Selector : MonoBehaviour, ISelectHandler, IDeselectHandler
+    public class Selector : MonoBehaviour//, ISelectHandler, IDeselectHandler
     {
         [Header("Animation")]
         [SerializeField]
@@ -40,14 +40,19 @@ namespace Project
             set;
         }
 
-        public void OnSelect(BaseEventData eventData)
-        {
-            hoverImage.SetBool(visibilityFlag, true);
-        }
+        //public void OnSelect(BaseEventData eventData)
+        //{
+        //    hoverImage.SetBool(visibilityFlag, true);
+        //}
 
-        public void OnDeselect(BaseEventData eventData)
+        //public void OnDeselect(BaseEventData eventData)
+        //{
+        //    hoverImage.SetBool(visibilityFlag, false);
+        //}
+
+        public void SetVisible(bool visible)
         {
-            throw new System.NotImplementedException();
+            hoverImage.SetBool(visibilityFlag, visible);
         }
     }
 }
