@@ -8,7 +8,8 @@ using OmiyaGames;
 
 namespace Project
 {
-    public class Inventory : MonoBehaviour, ISelectHandler, IDeselectHandler
+    [RequireComponent(typeof(Selectable))]
+    public class Inventory : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, IPointerDownHandler
     {
         [SerializeField]
         Image topLeft;
@@ -40,6 +41,8 @@ namespace Project
         [SerializeField]
         [ReadOnly]
         Block bottomRightBlock;
+
+        Selectable selectable = null;
 
         #region Properties
         public Block TopLeftBlock
@@ -93,6 +96,18 @@ namespace Project
                 UpdateImage(bottomRight, value);
             }
         }
+
+        public Selectable Selectable
+        {
+            get
+            {
+                if(selectable == null)
+                {
+                    selectable = GetComponent<Selectable>();
+                }
+                return selectable;
+            }
+        }
         #endregion
 
         private void Start()
@@ -114,19 +129,6 @@ namespace Project
             }
         }
 
-        public void OnSelect(BaseEventData eventData)
-        {
-            collection.HoveredInventory = this;
-        }
-
-        public void OnDeselect(BaseEventData eventData)
-        {
-            if(collection.HoveredInventory != this)
-            {
-                collection.HoveredInventory = null;
-            }
-        }
-
         public void OnClick()
         {
             cursor.SelectedInventory = this;
@@ -141,6 +143,24 @@ namespace Project
                 image.sprite = prefab.Graphic.sprite;
                 image.color = prefab.Graphic.color;
             }
+        }
+
+        public void OnPointerEnter(PointerEventData eventData)
+        {
+            collection.HoveredInventory = this;
+        }
+
+        public void OnPointerExit(PointerEventData eventData)
+        {
+            if (collection.HoveredInventory != this)
+            {
+                collection.HoveredInventory = null;
+            }
+        }
+
+        public void OnPointerDown(PointerEventData eventData)
+        {
+            cursor.SelectedInventory = this;
         }
     }
 }

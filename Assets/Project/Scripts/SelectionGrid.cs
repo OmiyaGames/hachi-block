@@ -123,14 +123,12 @@ namespace Project
         private void Update()
         {
             // Check if the mouse button is up
-            if (Input.GetMouseButtonUp(0) == true)
+            if ((Input.GetMouseButtonUp(0) == true) && (CurrentlySelectedSelector != null))
             {
-                if (CurrentlySelectedSelector != null)
-                {
-                    ReplaceBlocks(CurrentlySelectedSelector);
-                    CurrentlySelectedSelector.SetHovered(false);
-                    inventories.HoveredInventory = null;
-                }
+                ReplaceBlocks(CurrentlySelectedSelector);
+                CurrentlySelectedSelector.SetHovered(false);
+                inventories.HoveredInventory = null;
+                cursor.Deselect();
             }
         }
 

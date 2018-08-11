@@ -42,9 +42,14 @@ namespace Project
             }
             set
             {
+                if(selectedInventory != null)
+                {
+                    selectedInventory.Selectable.interactable = true;
+                }
                 selectedInventory = value;
                 if(selectedInventory != null)
                 {
+                    selectedInventory.Selectable.interactable = false;
                     cursorInventory.Sync(selectedInventory);
                     IsDragging = true;
                 }
@@ -74,6 +79,11 @@ namespace Project
                     transform.position = ray.GetPoint(distance);
                 }
             }
+        }
+
+        public void Deselect()
+        {
+            SelectedInventory = null;
         }
     }
 }
