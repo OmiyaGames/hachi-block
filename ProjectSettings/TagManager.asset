@@ -39,6 +39,21 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Background
+    uniqueID: 1480919159
+    locked: 0
+  - name: Grid Layout
+    uniqueID: 701863525
+    locked: 0
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: Combo
+    uniqueID: 1231055465
+    locked: 0
+  - name: Hover-Select
+    uniqueID: 2115443819
+    locked: 0
+  - name: UI
+    uniqueID: 1481861977
     locked: 0

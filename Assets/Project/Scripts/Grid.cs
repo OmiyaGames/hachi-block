@@ -10,35 +10,57 @@ namespace Project
     {
         [Header("Grid Dimensions")]
         [SerializeField]
-        int gridWidth = 10;
+        [UnityEngine.Serialization.FormerlySerializedAs("gridWidth")]
+        int width = 10;
         [SerializeField]
-        int gridHeight = 10;
+        [UnityEngine.Serialization.FormerlySerializedAs("gridHeight")]
+        int height = 10;
 
         [Header("Cell Dimensions")]
         [SerializeField]
         float cellLength = 0.2f;
 
-        // FIXME: probably want to come up with some initial values
-        [Header("Start Grid")]
-        [SerializeField]
-        Block[] allBlockTypes;
-
         Block[,] grid = null;
 
         #region Properties
+        /// <summary>
+        /// 
+        /// </summary>
         public Block[,] BlockGrid
         {
             get
             {
                 if(grid == null)
                 {
-                    grid = new Block[gridWidth, gridHeight];
+                    grid = new Block[Width, Height];
                 }
                 return grid;
             }
         }
 
-        public static PoolingManager Pool
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Width
+        {
+            get
+            {
+                return width;
+            }
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        public int Height
+        {
+            get
+            {
+                return height;
+            }
+        }
+
+        static PoolingManager Pool
         {
             get
             {
@@ -47,41 +69,47 @@ namespace Project
         }
         #endregion
 
-        // Use this for initialization
-        void Start()
-        {
-            for(int x = 0; x < gridWidth; ++x)
-            {
-                for(int y = 0; y < gridHeight; ++y)
-                {
-                    CreateBlock(RandomBlock(), x, y);
-                }
-            }
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public bool IsValidGridPosition(int x, int y)
         {
-            return (x >= 0) && (x < gridWidth) && (y >= 0) && (y < gridHeight);
+            return (x >= 0) && (x < Width) && (y >= 0) && (y < Height);
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gridPosition"></param>
+        /// <returns></returns>
         public bool IsValidGridPosition(Vector2Int gridPosition)
         {
             return IsValidGridPosition(gridPosition.x, gridPosition.y);
         }
 
-        // FIXME: create a second function that double-checks
-        // previous blocks in the grid, and makes sure it
-        // doesn't trigger a combo
-        public Block RandomBlock()
-        {
-            return allBlockTypes[Random.Range(0, allBlockTypes.Length)];
-        }
-
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gridPosition"></param>
+        /// <returns></returns>
         public Vector3 ConvertGridToWorldPosition(Vector2Int gridPosition)
         {
-            return new Vector3(ConvertGridToWorldUnit(gridPosition.x, gridWidth), ConvertGridToWorldUnit(gridPosition.y, gridHeight));
+            Vector3 returnPosition = transform.position;
+            returnPosition.x += ConvertGridToWorldUnit(gridPosition.x, Width);
+            returnPosition.y += ConvertGridToWorldUnit(gridPosition.y, Height);
+            return returnPosition;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="blockType"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public Block CreateBlock(Block blockType, int x, int y)
         {
             Block returnBlock = null;
@@ -94,6 +122,24 @@ namespace Project
             return returnBlock;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="blockType"></param>
+        /// <param name="gridPosition"></param>
+        /// <returns></returns>
+        public Block CreateBlock(Block blockType, Vector2Int gridPosition)
+        {
+            return CreateBlock(blockType, gridPosition.x, gridPosition.y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="block"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public Block MoveBlock(Block block, int x, int y)
         {
             Block oldBlock = null;
@@ -128,6 +174,23 @@ namespace Project
             return oldBlock;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="block"></param>
+        /// <param name="gridPosition"></param>
+        /// <returns></returns>
+        public Block MoveBlock(Block block, Vector2Int gridPosition)
+        {
+            return MoveBlock(block, gridPosition.x, gridPosition.y);
+        }
+
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <returns></returns>
         public Block RemoveBlock(int x, int y)
         {
             Block oldBlock = null;
@@ -145,9 +208,21 @@ namespace Project
             return oldBlock;
         }
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="gridPosition"></param>
+        /// <returns></returns>
+        public Block RemoveBlock(Vector2Int gridPosition)
+        {
+            return RemoveBlock(gridPosition.x, gridPosition.y);
+        }
+
+        #region Helper Methods
         private float ConvertGridToWorldUnit(int unit, int maxUnit)
         {
-            return (unit * cellLength) - ((maxUnit * cellLength) / 2f);
+            return (unit * cellLength) - (((maxUnit - 1) * cellLength) / 2f);
         }
+        #endregion
     }
 }
