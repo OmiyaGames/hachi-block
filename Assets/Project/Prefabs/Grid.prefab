@@ -873,7 +873,7 @@ Animator:
   m_GameObject: {fileID: 1427867736831250}
   m_Enabled: 1
   m_Avatar: {fileID: 0}
-  m_Controller: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: c187171d43e82e84588f96293d06ce2e, type: 2}
   m_CullingMode: 0
   m_UpdateMode: 0
   m_ApplyRootMotion: 0
@@ -1322,7 +1322,8 @@ MonoBehaviour:
   bottomRight: {fileID: 114082228320510054}
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
-  cursor: {fileID: 0}
+  cursor: {fileID: 114644571116447880}
+  collection: {fileID: 114457136182919708}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -1509,6 +1510,7 @@ MonoBehaviour:
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
   cursor: {fileID: 0}
+  collection: {fileID: 0}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -1770,7 +1772,8 @@ MonoBehaviour:
   bottomRight: {fileID: 114723616722088184}
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
-  cursor: {fileID: 0}
+  cursor: {fileID: 114644571116447880}
+  collection: {fileID: 114457136182919708}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -2034,7 +2037,8 @@ MonoBehaviour:
   bottomRight: {fileID: 114671167936108172}
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
-  cursor: {fileID: 0}
+  cursor: {fileID: 114644571116447880}
+  collection: {fileID: 114457136182919708}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -2051,10 +2055,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 114608865836827362}
-  cursor: {fileID: 0}
+  cursor: {fileID: 114644571116447880}
   canvas: {fileID: 114285892533622934}
   layout: {fileID: 114952647853652468}
   selector: {fileID: 114286519652925256, guid: 938e4129bafd3bb4fbfb361920e699ba, type: 2}
+  inventories: {fileID: 114457136182919708}
   block: {fileID: 114532758656354864, guid: 1d7fe0632567c0142ac56515f1b19222, type: 2}
 --- !u!114 &114620411393168748
 MonoBehaviour:
@@ -2356,7 +2361,8 @@ MonoBehaviour:
   bottomRight: {fileID: 114427476841634920}
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
-  cursor: {fileID: 0}
+  cursor: {fileID: 114644571116447880}
+  collection: {fileID: 114457136182919708}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -2540,7 +2546,8 @@ MonoBehaviour:
   bottomRight: {fileID: 114514681938953838}
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
-  cursor: {fileID: 0}
+  cursor: {fileID: 114644571116447880}
+  collection: {fileID: 114457136182919708}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}

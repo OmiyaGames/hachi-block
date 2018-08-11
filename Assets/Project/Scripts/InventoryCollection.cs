@@ -16,5 +16,11 @@ namespace Project
                 return allInventories;
             }
         }
+
+        public Inventory HoveredInventory
+        {
+            get;
+            set;
+        }
     }
 }

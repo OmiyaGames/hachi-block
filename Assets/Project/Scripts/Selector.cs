@@ -62,11 +62,11 @@ namespace Project
 
         public void SetHovered(bool isHovered)
         {
-            if(isHovered == true)
+            if ((isHovered == true) && (Grid.CanSelect == true))
             {
                 Grid.CurrentlySelectedSelector = this;
             }
-            else if(IsSelected == true)
+            else if (IsSelected == true)
             {
                 Grid.CurrentlySelectedSelector = null;
             }
