@@ -4,6 +4,7 @@ using OmiyaGames.Global;
 
 namespace Project
 {
+    [DisallowMultipleComponent]
     public class BlockGrid : MonoBehaviour
     {
         [Header("Grid Dimensions")]

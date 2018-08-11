@@ -4,6 +4,7 @@ using UnityEngine;
 
 namespace Project
 {
+    [DisallowMultipleComponent]
     public class BlockCollection : MonoBehaviour
     {
         [SerializeField]
