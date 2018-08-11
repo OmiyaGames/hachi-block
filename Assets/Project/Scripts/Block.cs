@@ -20,7 +20,7 @@ namespace Project
         [Header("Debugging Info")]
         [SerializeField]
         [ReadOnly]
-        Vector2Int gridPosition;
+        Vector2Int gridPosition = new Vector2Int(-1, -1);
 
         #region Properties
         public BlockType Type

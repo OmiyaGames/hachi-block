@@ -25,6 +25,7 @@ namespace Project
 
         Block[,] grid = null;
 
+        #region Properties
         public Block[,] BlockGrid
         {
             get
@@ -44,20 +45,28 @@ namespace Project
                 return Singleton.Get<PoolingManager>();
             }
         }
+        #endregion
 
         // Use this for initialization
         void Start()
         {
-            Block newBlock = null;
-
             for(int x = 0; x < gridWidth; ++x)
             {
                 for(int y = 0; y < gridHeight; ++y)
                 {
-                    newBlock = CreateBlock(RandomBlock(), x, y);
-                    BlockGrid[x, y] = newBlock;
+                    CreateBlock(RandomBlock(), x, y);
                 }
             }
+        }
+
+        public bool IsValidGridPosition(int x, int y)
+        {
+            return (x >= 0) && (x < gridWidth) && (y >= 0) && (y < gridHeight);
+        }
+
+        public bool IsValidGridPosition(Vector2Int gridPosition)
+        {
+            return IsValidGridPosition(gridPosition.x, gridPosition.y);
         }
 
         // FIXME: create a second function that double-checks
@@ -75,23 +84,67 @@ namespace Project
             return worldPosition;
         }
 
-        private Block CreateBlock(Block newBlock, int x, int y)
+        private Block CreateBlock(Block blockType, int x, int y)
         {
             Block returnBlock = null;
-            if ((x >= 0) && (x < gridWidth) && (y >= 0) && (y < gridHeight))
+            if (IsValidGridPosition(x, y) == true)
             {
+                // Grab a block from the pool
+                returnBlock = Pool.GetInstance<Block>(blockType);
+                MoveBlock(returnBlock, x, y);
+            }
+            return returnBlock;
+        }
+
+        private Block MoveBlock(Block block, int x, int y)
+        {
+            Block oldBlock = null;
+            if ((block != null) && (block.isActiveAndEnabled == true) && (IsValidGridPosition(x, y) == true))
+            {
+                // Remove a block from this grid position
+                oldBlock = RemoveBlock(x, y);
+
                 // Update block position
                 Vector2Int gridPosition = new Vector2Int(x, y);
 
                 // Convert to world position
                 Vector3 worldPosition = ConvertGridToWorldPosition(gridPosition);
 
-                // FIXME: update the 
-                returnBlock = Pool.GetInstance<Block>(newBlock, worldPosition, Quaternion.identity);
-                returnBlock.GridPosition = gridPosition;
-                returnBlock.Grid = this;
+                // Update the transform
+                block.transform.position = worldPosition;
+
+                // Check if the block had a valid position
+                if(IsValidGridPosition(block.GridPosition) == true)
+                {
+                    // If so, make sure the grid position is set to null
+                    BlockGrid[block.GridPosition.x, block.GridPosition.y] = null;
+                }
+
+                // Update the member variables
+                block.GridPosition = gridPosition;
+                block.Grid = this;
+
+                // Set this block location to block
+                BlockGrid[x, y] = block;
             }
-            return returnBlock;
+            return oldBlock;
+        }
+
+        private Block RemoveBlock(int x, int y)
+        {
+            Block oldBlock = null;
+            if (IsValidGridPosition(x, y) == true)
+            {
+                // Check if there's a block in this location already
+                oldBlock = BlockGrid[x, y];
+                if (oldBlock != null)
+                {
+                    // If there is, return this block to the pool
+                    PoolingManager.ReturnToPool(oldBlock);
+                    BlockGrid[x, y] = null;
+                }
+            }
+            return oldBlock;
         }
     }
 }
