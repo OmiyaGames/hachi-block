@@ -79,12 +79,10 @@ namespace Project
 
         public Vector3 ConvertGridToWorldPosition(Vector2Int gridPosition)
         {
-            // FIXME: update position to be more centered on the screen
-            Vector3 worldPosition = new Vector3((gridPosition.x * cellLength), (gridPosition.y * cellLength));
-            return worldPosition;
+            return new Vector3(ConvertGridToWorldUnit(gridPosition.x, gridWidth), ConvertGridToWorldUnit(gridPosition.y, gridHeight));
         }
 
-        private Block CreateBlock(Block blockType, int x, int y)
+        public Block CreateBlock(Block blockType, int x, int y)
         {
             Block returnBlock = null;
             if (IsValidGridPosition(x, y) == true)
@@ -96,7 +94,7 @@ namespace Project
             return returnBlock;
         }
 
-        private Block MoveBlock(Block block, int x, int y)
+        public Block MoveBlock(Block block, int x, int y)
         {
             Block oldBlock = null;
             if ((block != null) && (block.isActiveAndEnabled == true) && (IsValidGridPosition(x, y) == true))
@@ -130,7 +128,7 @@ namespace Project
             return oldBlock;
         }
 
-        private Block RemoveBlock(int x, int y)
+        public Block RemoveBlock(int x, int y)
         {
             Block oldBlock = null;
             if (IsValidGridPosition(x, y) == true)
@@ -145,6 +143,11 @@ namespace Project
                 }
             }
             return oldBlock;
+        }
+
+        private float ConvertGridToWorldUnit(int unit, int maxUnit)
+        {
+            return (unit * cellLength) - ((maxUnit * cellLength) / 2f);
         }
     }
 }
