@@ -46,11 +46,11 @@ namespace Project
             }
         }
 
-        public Sprite Graphic
+        public SpriteRenderer Graphic
         {
             get
             {
-                return graphic.sprite;
+                return graphic;
             }
         }
 
