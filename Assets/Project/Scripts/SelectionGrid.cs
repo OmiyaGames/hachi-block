@@ -142,13 +142,20 @@ namespace Project
 
         public void ReplaceBlocks(Vector2Int position)
         {
-            BlockGrid.CreateBlock(block, position);
-            position.x += 1;
-            BlockGrid.CreateBlock(block, position);
-            position.y += 1;
-            BlockGrid.CreateBlock(block, position);
-            position.x -= 1;
-            BlockGrid.CreateBlock(block, position);
+            if((cursor != null) && (cursor.SelectedInventory != null))
+            {
+                // Replace the blocks
+                BlockGrid.CreateBlock(cursor.SelectedInventory.BottomLeftBlock, position);
+                position.x += 1;
+                BlockGrid.CreateBlock(cursor.SelectedInventory.BottomRightBlock, position);
+                position.y += 1;
+                BlockGrid.CreateBlock(cursor.SelectedInventory.TopRightBlock, position);
+                position.x -= 1;
+                BlockGrid.CreateBlock(cursor.SelectedInventory.TopLeftBlock, position);
+
+                // Shuffle the inventory
+                cursor.SelectedInventory.Shuffle();
+            }
         }
     }
 }

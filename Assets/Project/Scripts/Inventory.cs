@@ -101,7 +101,7 @@ namespace Project
         {
             get
             {
-                if(selectable == null)
+                if (selectable == null)
                 {
                     selectable = GetComponent<Selectable>();
                 }
@@ -112,10 +112,7 @@ namespace Project
 
         private void Start()
         {
-            TopLeftBlock = allBlocks.RandomBlockPrefab();
-            TopRightBlock = allBlocks.RandomBlockPrefab();
-            BottomLeftBlock = allBlocks.RandomBlockPrefab();
-            BottomRightBlock = allBlocks.RandomBlockPrefab();
+            Shuffle();
         }
 
         public void Sync(Inventory other)
@@ -126,22 +123,6 @@ namespace Project
                 TopRightBlock = other.TopRightBlock;
                 BottomLeftBlock = other.BottomLeftBlock;
                 BottomRightBlock = other.BottomRightBlock;
-            }
-        }
-
-        public void OnClick()
-        {
-            cursor.SelectedInventory = this;
-            //collection.HoveredInventory = null;
-            //Singleton.Get<EventSystem>().SetSelectedGameObject(null);
-        }
-
-        private static void UpdateImage(Image image, Block prefab)
-        {
-            if ((image != null) && (prefab != null))
-            {
-                image.sprite = prefab.Graphic.sprite;
-                image.color = prefab.Graphic.color;
             }
         }
 
@@ -161,6 +142,23 @@ namespace Project
         public void OnPointerDown(PointerEventData eventData)
         {
             cursor.SelectedInventory = this;
+        }
+
+        public void Shuffle()
+        {
+            TopLeftBlock = allBlocks.RandomBlockPrefab();
+            TopRightBlock = allBlocks.RandomBlockPrefab();
+            BottomLeftBlock = allBlocks.RandomBlockPrefab();
+            BottomRightBlock = allBlocks.RandomBlockPrefab();
+        }
+
+        private static void UpdateImage(Image image, Block prefab)
+        {
+            if ((image != null) && (prefab != null))
+            {
+                image.sprite = prefab.Graphic.sprite;
+                image.color = prefab.Graphic.color;
+            }
         }
     }
 }
