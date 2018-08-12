@@ -1202,6 +1202,10 @@ MonoBehaviour:
   scoreForExtraBlocks: 1
   incrementMultiplierPerComboBy: 0.5
   maxMultiplier: 4
+  animationDelays:
+    staggerFormation: 0.035
+    maxDelayBetweenComboAndElimination: 0.2
+    maxDropWaitTime: 1
   numMoves: 0
   score: 0
 --- !u!114 &114087423790534522

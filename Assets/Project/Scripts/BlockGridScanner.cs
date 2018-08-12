@@ -26,10 +26,69 @@ namespace Project
                 }
             }
 
+            public int NumBlocks
+            {
+                get
+                {
+                    int returnNum = 0;
+                    foreach (Block[] formation in RowFormations)
+                    {
+                        returnNum = formation.Length;
+                    }
+                    foreach (Block[] formation in ColumnFormations)
+                    {
+                        returnNum = formation.Length;
+                    }
+                    return returnNum;
+                }
+            }
+
             public void Reset()
             {
                 RowFormations.Clear();
                 ColumnFormations.Clear();
+            }
+        }
+
+        [System.Serializable]
+        public class Delay
+        {
+            [SerializeField]
+            float staggerFormation = 0.2f;
+            [SerializeField]
+            float maxDelayBetweenComboAndElimination = 0.5f;
+
+            // FIXME: figure out a much more elegant way to handle whether a block dropped to the right place or not
+            [SerializeField]
+            float maxDropWaitTime = 1f;
+
+            WaitForSeconds waitForStaggerFormation = null;
+
+            public float StaggerFormation
+            {
+                get
+                {
+                    return staggerFormation;
+                }
+            }
+
+            public WaitForSeconds WaitForStaggerFormation
+            {
+                get
+                {
+                    if(waitForStaggerFormation == null)
+                    {
+                        waitForStaggerFormation = new WaitForSeconds(StaggerFormation);
+                    }
+                    return waitForStaggerFormation;
+                }
+            }
+
+            public float GetDelayBetweenComboAndElimination(int numBlocks)
+            {
+                float returnTime = maxDelayBetweenComboAndElimination;
+                returnTime -= (numBlocks * StaggerFormation);
+                return returnTime;
             }
         }
 
@@ -48,6 +107,10 @@ namespace Project
         float incrementMultiplierPerComboBy = 0.5f;
         [SerializeField]
         float maxMultiplier = 4f;
+
+        [Header("Animations")]
+        [SerializeField]
+        Delay animationDelays = new Delay();
 
         [Header("Debug Info")]
         [SerializeField]
@@ -88,23 +151,128 @@ namespace Project
         }
         #endregion
 
+        public IEnumerator AnimateScan(InventoryCollection enable)
+        {
+            // Setup variables
+            int comboCount = 0;
+            bool isFormationFound = false;
+
+            // Disable inventory
+            enable.IsAllEnabled = false;
+
+            // Drop blocks first; let them contribute to the combos
+            DropNewBlocks();
+            yield return StartCoroutine(AnimateBlocksDropping());
+
+            // Scan for any formations
+            DiscoveredFormations formations = ScanFormations(comboCount, out isFormationFound);
+            while (isFormationFound == true)
+            {
+                // Update combo counter
+                comboCount += formations.RowFormations.Count;
+                comboCount += formations.ColumnFormations.Count;
+
+                // Update blocks to indicate they're now in combo state
+                yield return StartCoroutine(UpdateFormation(formations, Block.State.Combo));
+
+                // Wait for the combo animation to finish
+                float waitTime = animationDelays.GetDelayBetweenComboAndElimination(formations.NumBlocks);
+                if(waitTime > 0)
+                {
+                    yield return new WaitForSeconds(waitTime);
+                }
+
+                // Update blocks to indicate they're eliminated
+                yield return StartCoroutine(UpdateFormation(formations, Block.State.Eliminated));
+
+                // Wait until the last block is hidden
+                Block lastBlock = GetLastBlock(formations);
+                while(lastBlock.CurrentState != Block.State.Hidden)
+                {
+                    yield return null;
+                }
+
+                // Animate the blocks dropping
+                yield return StartCoroutine(AnimateBlocksDropping());
+
+                // Scan for the next formations
+                formations = ScanFormations(comboCount, out isFormationFound);
+            }
+
+            // Re-enable inventory
+            enable.IsAllEnabled = true;
+        }
+
+        private IEnumerator UpdateFormation(DiscoveredFormations formations, Block.State toState)
+        {
+            foreach (Block[] formation in formations.RowFormations)
+            {
+                foreach (Block block in formation)
+                {
+                    if (UpdateFormationBlock(block, toState) == true)
+                    {
+                        yield return animationDelays.WaitForStaggerFormation;
+                    }
+                }
+            }
+            foreach (Block[] formation in formations.ColumnFormations)
+            {
+                foreach (Block block in formation)
+                {
+                    if (UpdateFormationBlock(block, toState) == true)
+                    {
+                        yield return animationDelays.WaitForStaggerFormation;
+                    }
+                }
+            }
+        }
+
+        private bool UpdateFormationBlock(Block checkBlock, Block.State toState)
+        {
+            // Mark the block as detected
+            bool returnFlag = false;
+            if (((int)checkBlock.CurrentState) < ((int)toState))
+            {
+                checkBlock.CurrentState = toState;
+                returnFlag = true;
+            }
+            return returnFlag;
+        }
+
         /// <summary>
         /// 
         /// </summary>
         /// <returns></returns>
-        public int DropNewBlocks()
+        private int DropNewBlocks()
         {
+            // FIXME: actually drop blocks
             ++NumMoves;
             return NumMoves;
         }
 
-        public DiscoveredFormations ScanFormations(int numCombos, out bool isFormationFound)
+        private Block GetLastBlock(DiscoveredFormations formation)
+        {
+            Block returnBlock = null;
+            if(formation.ColumnFormations.Count > 0)
+            {
+                Block[] column = formation.ColumnFormations[formation.ColumnFormations.Count - 1];
+                returnBlock = column[column.Length - 1];
+            }
+            else if(formation.RowFormations.Count > 0)
+            {
+                Block[] row = formation.RowFormations[formation.RowFormations.Count - 1];
+                returnBlock = row[row.Length - 1];
+            }
+            return returnBlock;
+        }
+
+        private DiscoveredFormations ScanFormations(int numCombos, out bool isFormationFound)
         {
             // Clear the list
             ScannedFormations.Reset();
 
             // Drop the blocks, first
-            DropBlocks();
+            AnimateBlocksDropping();
 
             // Scan the grid for any formations
             ScanRowsForCombos(numCombos);
@@ -139,9 +307,9 @@ namespace Project
             }
         }
 
-        private void DropBlocks()
+        private IEnumerator AnimateBlocksDropping()
         {
-
+            yield return null;
         }
 
         private int ScanForCombos(int x, int y, bool checkRow)
