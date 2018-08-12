@@ -42,12 +42,12 @@ namespace Project
             {
                 if(selectedInventory != null)
                 {
-                    selectedInventory.Selectable.interactable = true;
+                    selectedInventory.IsEnabled = true;
                 }
                 selectedInventory = value;
                 if(selectedInventory != null)
                 {
-                    selectedInventory.Selectable.interactable = false;
+                    selectedInventory.IsEnabled = false;
                     cursorInventory.Sync(selectedInventory);
                     IsDragging = true;
                 }

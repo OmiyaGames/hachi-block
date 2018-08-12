@@ -43,6 +43,7 @@ namespace Project
         Block bottomRightBlock;
 
         Selectable selectable = null;
+        bool isEnabled = true;
 
         #region Properties
         public Block TopLeftBlock
@@ -97,7 +98,20 @@ namespace Project
             }
         }
 
-        public Selectable Selectable
+        public bool IsEnabled
+        {
+            get
+            {
+                return Selectable.interactable;
+            }
+            set
+            {
+                isEnabled = value;
+                UpdateControl();
+            }
+        }
+
+        private Selectable Selectable
         {
             get
             {
@@ -141,7 +155,10 @@ namespace Project
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            cursor.SelectedInventory = this;
+            if(IsEnabled == true)
+            {
+                cursor.SelectedInventory = this;
+            }
         }
 
         public void Shuffle()
@@ -159,6 +176,11 @@ namespace Project
             TopRightBlock = BottomRightBlock;
             BottomRightBlock = BottomLeftBlock;
             BottomLeftBlock = swapBlock;
+        }
+
+        public void UpdateControl()
+        {
+            Selectable.interactable = (collection.IsAllEnabled && isEnabled);
         }
 
         private static void UpdateImage(Image image, Block prefab)
