@@ -171,6 +171,14 @@ namespace Project
                 score = value;
             }
         }
+
+        public int BlocksInARow
+        {
+            get
+            {
+                return blocksInARow;
+            }
+        }
         #endregion
 
         public IEnumerator AnimateScan(InventoryCollection enable)
@@ -341,7 +349,7 @@ namespace Project
             for (int y = 0; y < grid.Height; ++y)
             {
                 int x = 0;
-                while (x < (grid.Width - blocksInARow + 1))
+                while (x < (grid.Width - BlocksInARow + 1))
                 {
                     x = ScanForCombos(x, y, true);
                 }
@@ -353,7 +361,7 @@ namespace Project
             for (int x = 0; x < grid.Width; ++x)
             {
                 int y = 0;
-                while (y < (grid.Height - blocksInARow + 1))
+                while (y < (grid.Height - BlocksInARow + 1))
                 {
                     y = ScanForCombos(x, y, false);
                 }
@@ -429,11 +437,10 @@ namespace Project
             // Check the block
             if (compareBlock == null)
             {
-                Debug.Log("Empty Cell Detected at: " + x + ", " + y);
                 // Return the end index immediately if this is an empty cell
                 return endIndex;
             }
-            else if (LengthOfFormation(x, y, startIndex, ref endIndex, maxIndex, compareBlock, checkRow) >= blocksInARow)
+            else if (LengthOfFormation(x, y, startIndex, ref endIndex, maxIndex, compareBlock, checkRow) >= BlocksInARow)
             {
                 // At this point, we found a row. Look for a pre-existing hashset.
                 Block[] newFormation = CreateNewFormation(x, y, startIndex, endIndex, checkRow);
@@ -488,14 +495,6 @@ namespace Project
                 // Check if this block is like compareBlock
                 if (checkBlock == null)
                 {
-                    if (checkRow == true)
-                    {
-                        Debug.Log("Empty Cell Detected at: " + endIndex + ", " + y);
-                    }
-                    else
-                    {
-                        Debug.Log("Empty Cell Detected at: " + x + ", " + endIndex);
-                    }
                     // Nope, this is an empty cell
                     break;
                 }

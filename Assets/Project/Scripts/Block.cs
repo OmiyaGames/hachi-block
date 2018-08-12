@@ -11,10 +11,12 @@ namespace Project
     {
         public enum BlockType
         {
-            T1,
-            T2,
-            T3,
-            T4
+            Invalid = -1,
+            Base,
+            Light,
+            Dark,
+            Strange,
+            Quartz
         }
 
         public enum State

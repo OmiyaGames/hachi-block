@@ -17,6 +17,13 @@ namespace Project
         [Range(2, 20)]
         int height = 10;
 
+        [Header("Start State")]
+        [SerializeField]
+        [Range(3, 10)]
+        int numRowsFilledOnStart = 5;
+        [SerializeField]
+        int startingNumberOfBlockTypes = 3;
+
         [Header("Cell Dimensions")]
         [SerializeField]
         float cellLength = 0.2f;
@@ -28,6 +35,8 @@ namespace Project
         GameObject emptyCell;
         [SerializeField]
         BlockCollection allBlocks;
+        [SerializeField]
+        BlockGridScanner scanner;
 
         Block[,] grid = null;
         GameObject[] allBackgroundCells = null;
@@ -108,7 +117,7 @@ namespace Project
                 }
             }
 
-            AllBlocks.FillGrid(this, Height);
+            AllBlocks.FillGrid(this, numRowsFilledOnStart, startingNumberOfBlockTypes, scanner.BlocksInARow);
         }
 
         /// <summary>
