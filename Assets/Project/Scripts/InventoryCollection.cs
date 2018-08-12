@@ -8,6 +8,8 @@ namespace Project
     {
         [SerializeField]
         Inventory[] allInventories;
+        [SerializeField]
+        BlockGridScanner scanner;
 
         public Inventory[] AllInventories
         {
@@ -29,6 +31,8 @@ namespace Project
             {
                 inventory.Shuffle();
             }
+
+            scanner.DropNewBlocks();
         }
     }
 }
