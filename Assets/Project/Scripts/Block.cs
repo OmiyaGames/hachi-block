@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 using Community.UI;
 using OmiyaGames;
 using System;
@@ -9,11 +7,8 @@ namespace Project
 {
     [DisallowMultipleComponent]
     [RequireComponent(typeof(Animator))]
-    [RequireComponent(typeof(Rigidbody2D))]
     public class Block : IPooledObject
     {
-        public const float DetectFallDelay = 0.5f;
-
         public enum BlockType
         {
             T1,
@@ -35,6 +30,8 @@ namespace Project
         BlockType type;
         [SerializeField]
         SpriteRenderer graphic;
+        [SerializeField]
+        float gravity = 9.81f;
 
         [Header("Animation")]
         [SerializeField]
@@ -51,9 +48,8 @@ namespace Project
         State state = State.Idle;
 
         Animator cacheAnimator = null;
-        Rigidbody2D cacheBody = null;
         Action<float> everyFrame = null;
-        float fallStart = 0;
+        float velocity = 0;
 
         #region Properties
         public BlockType Type
@@ -103,17 +99,12 @@ namespace Project
                     state = value;
                     CacheAnimator.SetInteger(stateFieldName, (int)state);
 
-                    OnDestroy(null);
+                    AfterDeactivate(null);
                     if (state == State.Fall)
                     {
-                        CacheBody.bodyType = RigidbodyType2D.Dynamic;
-                        fallStart = Time.time;
-                        everyFrame = new Action<float>(Instance_OnUpdate);
+                        velocity = 0;
+                        everyFrame = new Action<float>(AnimateFalling);
                         Singleton.Instance.OnUpdate += everyFrame;
-                    }
-                    else
-                    {
-                        CacheBody.bodyType = RigidbodyType2D.Static;
                     }
                 }
             }
@@ -128,18 +119,6 @@ namespace Project
                     cacheAnimator = GetComponent<Animator>();
                 }
                 return cacheAnimator;
-            }
-        }
-
-        Rigidbody2D CacheBody
-        {
-            get
-            {
-                if (cacheBody == null)
-                {
-                    cacheBody = GetComponent<Rigidbody2D>();
-                }
-                return cacheBody;
             }
         }
         #endregion
@@ -162,9 +141,9 @@ namespace Project
             MarkHidden();
         }
 
-        public override void OnDestroy(OmiyaGames.Global.PoolingManager pool)
+        public override void AfterDeactivate(OmiyaGames.Global.PoolingManager pool)
         {
-            base.OnDestroy(pool);
+            base.AfterDeactivate(pool);
             if (everyFrame != null)
             {
                 Singleton.Instance.OnUpdate -= everyFrame;
@@ -172,19 +151,37 @@ namespace Project
             }
         }
 
-        private void Instance_OnUpdate(float obj)
+        private void AnimateFalling(float deltaTime)
         {
-            // Check the velocity
-            if (((Time.time - fallStart) > DetectFallDelay) && (CacheBody.velocity.y > 0.001f))
+            if (Grid.IsValidGridPosition(GridPosition) == true)
             {
-                // If the object is not falling anymore, switch back to idle
-                CurrentState = State.Idle;
+                // Get the target position
+                Vector3 targetPosition = Grid.ConvertGridToWorldPosition(GridPosition);
+                Vector3 currentPosition = transform.position;
 
-                // Snap the block's position
-                if(Grid.IsValidGridPosition(GridPosition) == true)
+                // Adjust velocity
+                velocity -= (gravity * deltaTime);
+
+                // Calculate position
+                currentPosition.y += velocity;
+
+                // Check the position
+                if (currentPosition.y > targetPosition.y)
                 {
-                    transform.position = Grid.ConvertGridToWorldPosition(GridPosition);
+                    // Set the position to current spot
+                    transform.position = currentPosition;
                 }
+                else
+                {
+                    // If the object falls below the target position, snap to it
+                    CurrentState = State.Idle;
+                    transform.position = targetPosition;
+                }
+            }
+            else
+            {
+                // If the object is at an invalid location, set to idle
+                CurrentState = State.Idle;
             }
         }
     }
