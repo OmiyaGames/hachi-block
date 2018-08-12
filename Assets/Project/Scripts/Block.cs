@@ -34,6 +34,8 @@ namespace Project
         [Header("Animation")]
         [SerializeField]
         string stateFieldName = "State";
+        [SerializeField]
+        string placedTriggerName = "Placed";
 
         [Header("Debugging Info")]
         [SerializeField]
@@ -96,7 +98,7 @@ namespace Project
             }
         }
 
-        public Animator CacheAnimator
+        Animator CacheAnimator
         {
             get
             {
@@ -112,6 +114,11 @@ namespace Project
         public void MarkHidden()
         {
             CurrentState = State.Hidden;
+        }
+
+        public void PlayPlacedAnimation()
+        {
+            CacheAnimator.SetTrigger(placedTriggerName);
         }
     }
 }

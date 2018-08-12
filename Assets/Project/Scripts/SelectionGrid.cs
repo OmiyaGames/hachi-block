@@ -121,11 +121,16 @@ namespace Project
             // Check if the mouse button is up
             if ((Input.GetMouseButtonUp(0) == true) && (CurrentlySelectedSelector != null))
             {
-                ReplaceBlocks(CurrentlySelectedSelector);
-                CurrentlySelectedSelector.SetHovered(false);
-                inventories.HoveredInventory = null;
-                cursor.Deselect();
+                MakeAMove();
             }
+        }
+
+        private void MakeAMove()
+        {
+            ReplaceBlocks(CurrentlySelectedSelector);
+            CurrentlySelectedSelector.SetHovered(false);
+            inventories.HoveredInventory = null;
+            cursor.Deselect();
         }
 
         public void ReplaceBlocks(Selector selector)
@@ -140,14 +145,24 @@ namespace Project
         {
             if((cursor != null) && (cursor.SelectedInventory != null))
             {
-                // Replace the blocks
-                BlockGrid.CreateBlock(cursor.SelectedInventory.BottomLeftBlock, position);
+                // Replace the Bottom Left block
+                Block newBlock = BlockGrid.CreateBlock(cursor.SelectedInventory.BottomLeftBlock, position);
+                newBlock.PlayPlacedAnimation();
+
+                // Bottom Right
                 position.x += 1;
-                BlockGrid.CreateBlock(cursor.SelectedInventory.BottomRightBlock, position);
+                newBlock = BlockGrid.CreateBlock(cursor.SelectedInventory.BottomRightBlock, position);
+                newBlock.PlayPlacedAnimation();
+
+                // Top Right
                 position.y += 1;
-                BlockGrid.CreateBlock(cursor.SelectedInventory.TopRightBlock, position);
+                newBlock = BlockGrid.CreateBlock(cursor.SelectedInventory.TopRightBlock, position);
+                newBlock.PlayPlacedAnimation();
+
+                // Top Left
                 position.x -= 1;
-                BlockGrid.CreateBlock(cursor.SelectedInventory.TopLeftBlock, position);
+                newBlock = BlockGrid.CreateBlock(cursor.SelectedInventory.TopLeftBlock, position);
+                newBlock.PlayPlacedAnimation();
 
                 // Shuffle the inventory
                 cursor.SelectedInventory.Shuffle();
