@@ -451,17 +451,7 @@ Prefab:
       propertyPath: m_RootOrder
       value: 8
       objectReference: {fileID: 0}
-    - target: {fileID: 114644571116447880, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: mainCamera
-      value: 
-      objectReference: {fileID: 1322657979}
-    - target: {fileID: 223245882905368548, guid: ad3bf00b51f1b8e499e121f157640d9c,
-        type: 2}
-      propertyPath: m_Camera
-      value: 
-      objectReference: {fileID: 1322657979}
-    - target: {fileID: 223689298506804504, guid: ad3bf00b51f1b8e499e121f157640d9c,
+    - target: {fileID: 223262867320257768, guid: ad3bf00b51f1b8e499e121f157640d9c,
         type: 2}
       propertyPath: m_Camera
       value: 
@@ -471,20 +461,30 @@ Prefab:
       propertyPath: m_Camera
       value: 
       objectReference: {fileID: 1322657979}
-    - target: {fileID: 223262867320257768, guid: ad3bf00b51f1b8e499e121f157640d9c,
+    - target: {fileID: 223689298506804504, guid: ad3bf00b51f1b8e499e121f157640d9c,
         type: 2}
       propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1322657979}
+    - target: {fileID: 223245882905368548, guid: ad3bf00b51f1b8e499e121f157640d9c,
+        type: 2}
+      propertyPath: m_Camera
+      value: 
+      objectReference: {fileID: 1322657979}
+    - target: {fileID: 114644571116447880, guid: ad3bf00b51f1b8e499e121f157640d9c,
+        type: 2}
+      propertyPath: mainCamera
       value: 
       objectReference: {fileID: 1322657979}
     - target: {fileID: 114510911010819828, guid: ad3bf00b51f1b8e499e121f157640d9c,
         type: 2}
       propertyPath: m_havePropertiesChanged
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 114510911010819828, guid: ad3bf00b51f1b8e499e121f157640d9c,
         type: 2}
       propertyPath: m_isInputParsingRequired
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ad3bf00b51f1b8e499e121f157640d9c, type: 2}

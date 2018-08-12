@@ -1205,7 +1205,7 @@ MonoBehaviour:
   animationDelays:
     staggerFormation: 0.035
     maxDelayBetweenComboAndElimination: 0.2
-    maxDropWaitTime: 1
+    maxDropWaitTime: 0.25
   numMoves: 0
   score: 0
 --- !u!114 &114087423790534522
