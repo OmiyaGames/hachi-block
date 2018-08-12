@@ -138,19 +138,7 @@ namespace Project
             cursor.Deselect();
 
             // Scan for any formations
-            int comboCount = 0;
-            bool isFormationFound = false;
-            BlockGridScanner.DiscoveredFormations formations = scanner.ScanFormations(comboCount, out isFormationFound);
-
-            // FIXME: move this part to a coroutine
-            UpdateFormation(formations);
-            //while (isFormationFound == true)
-            //{
-
-            //    ++comboCount;
-            //    formations = scanner.ScanFormations(comboCount, out isFormationFound);
-            //}
-            scanner.DropNewBlocks();
+            StartCoroutine(scanner.AnimateScan(inventories));
         }
 
         public void ReplaceBlocks(Selector selector)
@@ -186,33 +174,6 @@ namespace Project
 
                 // Shuffle the inventory
                 cursor.SelectedInventory.Shuffle();
-            }
-        }
-
-        private void UpdateFormation(BlockGridScanner.DiscoveredFormations formations)
-        {
-            foreach (Block[] formation in formations.RowFormations)
-            {
-                foreach (Block block in formation)
-                {
-                    UpdateFormationBlock(block);
-                }
-            }
-            foreach (Block[] formation in formations.ColumnFormations)
-            {
-                foreach (Block block in formation)
-                {
-                    UpdateFormationBlock(block);
-                }
-            }
-        }
-
-        private void UpdateFormationBlock(Block checkBlock)
-        {
-            // Mark the block as detected
-            if (checkBlock.CurrentState == Block.State.Idle)
-            {
-                checkBlock.CurrentState = Block.State.Combo;
             }
         }
     }

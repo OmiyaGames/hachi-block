@@ -32,7 +32,16 @@ namespace Project
                 inventory.Shuffle();
             }
 
-            scanner.DropNewBlocks();
+            StartCoroutine(scanner.AnimateScan(this));
+        }
+
+        public bool IsAllEnabled
+        {
+            set
+            {
+                // FIXME: actually implement!
+                //throw new System.NotImplementedException();
+            }
         }
     }
 }
