@@ -11,6 +11,8 @@ namespace Project
         [SerializeField]
         BlockGridScanner scanner;
 
+        bool isAllEnabled = true;
+
         public Inventory[] AllInventories
         {
             get
@@ -37,10 +39,17 @@ namespace Project
 
         public bool IsAllEnabled
         {
+            get
+            {
+                return isAllEnabled;
+            }
             set
             {
-                // FIXME: actually implement!
-                //throw new System.NotImplementedException();
+                isAllEnabled = value;
+                foreach(Inventory item in AllInventories)
+                {
+                    item.UpdateControl();
+                }
             }
         }
     }
