@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using Community.UI;
 using OmiyaGames;
+using System;
 
 namespace Project
 {
@@ -118,7 +119,15 @@ namespace Project
 
         public void PlayPlacedAnimation()
         {
+            CurrentState = State.Idle;
             CacheAnimator.SetTrigger(placedTriggerName);
+        }
+
+        public void ResetPosition()
+        {
+            gridPosition.x = -1;
+            gridPosition.y = -1;
+            MarkHidden();
         }
     }
 }

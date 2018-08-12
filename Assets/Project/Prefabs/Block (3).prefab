@@ -239,7 +239,7 @@ MonoBehaviour:
   graphic: {fileID: 212987301271527476}
   stateFieldName: State
   placedTriggerName: Placed
-  gridPosition: {x: 0, y: 0}
+  gridPosition: {x: -1, y: -1}
   state: 0
 --- !u!212 &212346319888641800
 SpriteRenderer:

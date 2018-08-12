@@ -26,7 +26,7 @@ namespace Project
             {
                 for (int y = 0; y < maxHeight; ++y)
                 {
-                    grid.CreateBlock(RandomBlockPrefab(), x, y);
+                    grid.CreateBlock(RandomBlockPrefab(), x, y).PlayPlacedAnimation();
                 }
             }
         }
