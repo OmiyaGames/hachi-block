@@ -2284,12 +2284,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 18
   height: 14
+  numRowsFilledOnStart: 5
+  startingNumberOfBlockTypes: 3
   cellLength: 1
   gizmoColor: {r: 0, g: 1, b: 1, a: 1}
   gridBackgroundParent: {fileID: 4287449006939572}
   emptyCell: {fileID: 1464565545252336, guid: b6dae4b97c20eea448102e7a978dd778, type: 2}
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
+  scanner: {fileID: 114085272604447942}
 --- !u!114 &114611428754350506
 MonoBehaviour:
   m_ObjectHideFlags: 1
