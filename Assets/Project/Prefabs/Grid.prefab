@@ -381,6 +381,7 @@ GameObject:
   - component: {fileID: 114608865836827362}
   - component: {fileID: 114617080474763424}
   - component: {fileID: 114457136182919708}
+  - component: {fileID: 114085272604447942}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -1184,6 +1185,25 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114085272604447942
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418969531906202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: f85904167f7b39840a7c2fe6bf102806, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 114608865836827362}
+  blocksInARow: 4
+  baseScore: 3
+  scoreForExtraBlocks: 1
+  incrementMultiplierPerComboBy: 0.5
+  maxMultiplier: 4
+  numMoves: 0
+  score: 0
 --- !u!114 &114087423790534522
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -1908,6 +1928,7 @@ MonoBehaviour:
   - {fileID: 114469215904087294}
   - {fileID: 114613436491314024}
   - {fileID: 114709896212693882}
+  scanner: {fileID: 114085272604447942}
 --- !u!114 &114469215904087294
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2325,6 +2346,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 114608865836827362}
   cursor: {fileID: 114644571116447880}
+  scanner: {fileID: 114085272604447942}
   canvas: {fileID: 114285892533622934}
   layout: {fileID: 114952647853652468}
   selector: {fileID: 114286519652925256, guid: 938e4129bafd3bb4fbfb361920e699ba, type: 2}

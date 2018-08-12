@@ -235,9 +235,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a2b75da832ba8f440a704ae7f09bf149, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  type: 1
+  type: 2
   graphic: {fileID: 212987301271527476}
+  stateFieldName: State
+  placedTriggerName: Placed
   gridPosition: {x: 0, y: 0}
+  state: 0
 --- !u!212 &212346319888641800
 SpriteRenderer:
   m_ObjectHideFlags: 1

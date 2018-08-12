@@ -10,7 +10,6 @@ namespace Project
         [SerializeField]
         BlockCursor cursor;
 
-
         public void OnPointerClick(PointerEventData eventData)
         {
             if (eventData.button == PointerEventData.InputButton.Left)
