@@ -152,6 +152,15 @@ namespace Project
             BottomRightBlock = allBlocks.RandomBlockPrefab();
         }
 
+        public void Rotate()
+        {
+            Block swapBlock = TopLeftBlock;
+            TopLeftBlock = TopRightBlock;
+            TopRightBlock = BottomRightBlock;
+            BottomRightBlock = BottomLeftBlock;
+            BottomLeftBlock = swapBlock;
+        }
+
         private static void UpdateImage(Image image, Block prefab)
         {
             if ((image != null) && (prefab != null))

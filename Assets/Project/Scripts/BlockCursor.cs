@@ -78,6 +78,11 @@ namespace Project
                 {
                     transform.position = ray.GetPoint(distance);
                 }
+                if(Input.GetMouseButtonUp(1) == true)
+                {
+                    cursorInventory.Rotate();
+                    SelectedInventory.Rotate();
+                }
             }
         }
 
