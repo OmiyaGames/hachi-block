@@ -237,7 +237,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   type: 1
   graphic: {fileID: 212987301271527476}
-  gridPosition: {x: 0, y: 0}
+  stateFieldName: State
+  placedTriggerName: Placed
+  gridPosition: {x: -1, y: -1}
+  state: 0
 --- !u!212 &212141795337584154
 SpriteRenderer:
   m_ObjectHideFlags: 1

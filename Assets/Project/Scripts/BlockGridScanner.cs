@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -76,7 +77,7 @@ namespace Project
             {
                 get
                 {
-                    if(waitForStaggerFormation == null)
+                    if (waitForStaggerFormation == null)
                     {
                         waitForStaggerFormation = new WaitForSeconds(StaggerFormation);
                     }
@@ -177,7 +178,7 @@ namespace Project
 
                 // Wait for the combo animation to finish
                 float waitTime = animationDelays.GetDelayBetweenComboAndElimination(formations.NumBlocks);
-                if(waitTime > 0)
+                if (waitTime > 0)
                 {
                     yield return new WaitForSeconds(waitTime);
                 }
@@ -187,20 +188,42 @@ namespace Project
 
                 // Wait until the last block is hidden
                 Block lastBlock = GetLastBlock(formations);
-                while(lastBlock.CurrentState != Block.State.Hidden)
+                while (lastBlock.CurrentState != Block.State.Hidden)
                 {
                     yield return null;
                 }
+
+                // Remove all blocks
+                RemoveFormations(formations);
 
                 // Animate the blocks dropping
                 yield return StartCoroutine(AnimateBlocksDropping());
 
                 // Scan for the next formations
-                formations = ScanFormations(comboCount, out isFormationFound);
+                isFormationFound = false;
+                //formations = ScanFormations(comboCount, out isFormationFound);
             }
 
             // Re-enable inventory
             enable.IsAllEnabled = true;
+        }
+
+        private void RemoveFormations(DiscoveredFormations formations)
+        {
+            foreach (Block[] formation in formations.RowFormations)
+            {
+                foreach (Block block in formation)
+                {
+                    grid.RemoveBlock(block.GridPosition);
+                }
+            }
+            foreach (Block[] formation in formations.ColumnFormations)
+            {
+                foreach (Block block in formation)
+                {
+                    grid.RemoveBlock(block.GridPosition);
+                }
+            }
         }
 
         private IEnumerator UpdateFormation(DiscoveredFormations formations, Block.State toState)
@@ -231,7 +254,7 @@ namespace Project
         {
             // Mark the block as detected
             bool returnFlag = false;
-            if (((int)checkBlock.CurrentState) < ((int)toState))
+            if ((checkBlock.CurrentState != Block.State.Eliminated) && (checkBlock.CurrentState != Block.State.Hidden))
             {
                 checkBlock.CurrentState = toState;
                 returnFlag = true;
@@ -253,12 +276,12 @@ namespace Project
         private Block GetLastBlock(DiscoveredFormations formation)
         {
             Block returnBlock = null;
-            if(formation.ColumnFormations.Count > 0)
+            if (formation.ColumnFormations.Count > 0)
             {
                 Block[] column = formation.ColumnFormations[formation.ColumnFormations.Count - 1];
                 returnBlock = column[column.Length - 1];
             }
-            else if(formation.RowFormations.Count > 0)
+            else if (formation.RowFormations.Count > 0)
             {
                 Block[] row = formation.RowFormations[formation.RowFormations.Count - 1];
                 returnBlock = row[row.Length - 1];
@@ -331,6 +354,7 @@ namespace Project
             // Check the block
             if (compareBlock == null)
             {
+                Debug.Log("Empty Cell Detected at: " + x + ", " + y);
                 // Return the end index immediately if this is an empty cell
                 return endIndex;
             }
@@ -389,6 +413,14 @@ namespace Project
                 // Check if this block is like compareBlock
                 if (checkBlock == null)
                 {
+                    if (checkRow == true)
+                    {
+                        Debug.Log("Empty Cell Detected at: " + endIndex + ", " + y);
+                    }
+                    else
+                    {
+                        Debug.Log("Empty Cell Detected at: " + x + ", " + endIndex);
+                    }
                     // Nope, this is an empty cell
                     break;
                 }

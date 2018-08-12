@@ -170,6 +170,7 @@ namespace Project
                 // Grab a block from the pool
                 returnBlock = Pool.GetInstance<Block>(blockType);
                 MoveBlock(returnBlock, x, y);
+                Debug.Log("Create Block at: " + x + ", " + y);
             }
             return returnBlock;
         }
@@ -214,6 +215,7 @@ namespace Project
                 {
                     // If so, make sure the grid position is set to null
                     Blocks[block.GridPosition.x, block.GridPosition.y] = null;
+                    Debug.Log("Move Block from: " + block.GridPosition.x + ", " + block.GridPosition.y);
                 }
 
                 // Update the member variables
@@ -253,8 +255,10 @@ namespace Project
                 if (oldBlock != null)
                 {
                     // If there is, return this block to the pool
+                    oldBlock.ResetPosition();
                     PoolingManager.ReturnToPool(oldBlock);
                     Blocks[x, y] = null;
+                    Debug.Log("Removed Block at: " + x + ", " + y);
                 }
             }
             return oldBlock;
