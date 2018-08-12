@@ -64,6 +64,7 @@ namespace Project
             float maxDropWaitTime = 1f;
 
             WaitForSeconds waitForStaggerFormation = null;
+            WaitForSeconds waitForDrop = null;
 
             public float StaggerFormation
             {
@@ -82,6 +83,26 @@ namespace Project
                         waitForStaggerFormation = new WaitForSeconds(StaggerFormation);
                     }
                     return waitForStaggerFormation;
+                }
+            }
+
+            public float MaxDropWaitTime
+            {
+                get
+                {
+                    return maxDropWaitTime;
+                }
+            }
+
+            public WaitForSeconds WaitForDrop
+            {
+                get
+                {
+                    if (waitForDrop == null)
+                    {
+                        waitForDrop = new WaitForSeconds(MaxDropWaitTime);
+                    }
+                    return waitForDrop;
                 }
             }
 
@@ -169,6 +190,9 @@ namespace Project
             DiscoveredFormations formations = ScanFormations(comboCount, out isFormationFound);
             while (isFormationFound == true)
             {
+                // Calculate the score
+                UpdateScore(formations);
+
                 // Update combo counter
                 comboCount += formations.RowFormations.Count;
                 comboCount += formations.ColumnFormations.Count;
@@ -201,11 +225,17 @@ namespace Project
 
                 // Scan for the next formations
                 isFormationFound = false;
-                //formations = ScanFormations(comboCount, out isFormationFound);
+                formations = ScanFormations(comboCount, out isFormationFound);
             }
 
             // Re-enable inventory
             enable.IsAllEnabled = true;
+        }
+
+        private void UpdateScore(DiscoveredFormations formations)
+        {
+            // FIXME: do something!
+            //throw new NotImplementedException();
         }
 
         private void RemoveFormations(DiscoveredFormations formations)
@@ -332,7 +362,51 @@ namespace Project
 
         private IEnumerator AnimateBlocksDropping()
         {
-            yield return null;
+            // Setup variables
+            int emptyIndex = -1, gap = 0, maxGap = 0;
+            Block checkBlock = null;
+
+            // Go through each column
+            for (int x = 0; x < grid.Width; ++x)
+            {
+                // Reset variables
+                emptyIndex = -1;
+
+                // Go through each cell, starting at the bottom
+                for (int y = 0; y < grid.Height; ++y)
+                {
+                    // Grab the block
+                    checkBlock = grid.Blocks[x, y];
+
+                    // Check if we've found an empty cell yet
+                    if ((emptyIndex < 0) && (checkBlock == null))
+                    {
+                        // If it's found, mark the y-coordinate
+                        emptyIndex = y;
+                    }
+                    else if ((emptyIndex >= 0) && (checkBlock != null))
+                    {
+                        // Move the block into the bottom-most empty cell
+                        grid.MoveBlock(checkBlock, x, emptyIndex);
+
+                        // Get maximum gap
+                        gap = (y - emptyIndex);
+                        if(maxGap < gap)
+                        {
+                            maxGap = gap;
+                        }
+
+                        // Increment empty index
+                        ++emptyIndex;
+                    }
+                }
+            }
+
+            // Check if there are any gaps
+            if(maxGap > 0)
+            {
+                yield return animationDelays.WaitForDrop;
+            }
         }
 
         private int ScanForCombos(int x, int y, bool checkRow)
