@@ -7,6 +7,7 @@ using OmiyaGames;
 namespace Project
 {
     [DisallowMultipleComponent]
+    [RequireComponent(typeof(Animator))]
     public class Block : IPooledObject
     {
         public enum BlockType
@@ -17,15 +18,32 @@ namespace Project
             T4
         }
 
+        public enum State
+        {
+            Idle,
+            Combo,
+            Eliminated,
+            Hidden
+        }
+
         [SerializeField]
         BlockType type;
         [SerializeField]
         SpriteRenderer graphic;
 
+        [Header("Animation")]
+        [SerializeField]
+        string stateFieldName = "State";
+
         [Header("Debugging Info")]
         [SerializeField]
         [ReadOnly]
         Vector2Int gridPosition = new Vector2Int(-1, -1);
+        [SerializeField]
+        [ReadOnly]
+        State state = State.Idle;
+
+        Animator cacheAnimator = null;
 
         #region Properties
         public BlockType Type
@@ -61,6 +79,39 @@ namespace Project
             get;
             set;
         }
+
+        public State CurrentState
+        {
+            get
+            {
+                return state;
+            }
+            set
+            {
+                if(state != value)
+                {
+                    state = value;
+                    CacheAnimator.SetInteger(stateFieldName, (int)state);
+                }
+            }
+        }
+
+        public Animator CacheAnimator
+        {
+            get
+            {
+                if(cacheAnimator == null)
+                {
+                    cacheAnimator = GetComponent<Animator>();
+                }
+                return cacheAnimator;
+            }
+        }
         #endregion
+
+        public void MarkHidden()
+        {
+            CurrentState = State.Hidden;
+        }
     }
 }
