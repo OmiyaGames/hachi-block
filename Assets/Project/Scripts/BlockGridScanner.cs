@@ -284,7 +284,7 @@ namespace Project
         {
             // Mark the block as detected
             bool returnFlag = false;
-            if ((checkBlock.CurrentState != Block.State.Eliminated) && (checkBlock.CurrentState != Block.State.Hidden))
+            if (((int)checkBlock.CurrentState) < ((int)toState))
             {
                 checkBlock.CurrentState = toState;
                 returnFlag = true;
@@ -387,7 +387,8 @@ namespace Project
                     else if ((emptyIndex >= 0) && (checkBlock != null))
                     {
                         // Move the block into the bottom-most empty cell
-                        grid.MoveBlock(checkBlock, x, emptyIndex);
+                        grid.MoveBlock(checkBlock, x, emptyIndex, false);
+                        checkBlock.CurrentState = Block.State.Fall;
 
                         // Get maximum gap
                         gap = (y - emptyIndex);

@@ -16,6 +16,8 @@ namespace Project
         [UnityEngine.Serialization.FormerlySerializedAs("gridHeight")]
         [Range(2, 20)]
         int height = 10;
+        [SerializeField]
+        Transform bottomCollider;
 
         [Header("Cell Dimensions")]
         [SerializeField]
@@ -107,6 +109,9 @@ namespace Project
                     allBackgroundCells[y + (x * Height)] = newCell;
                 }
             }
+
+            bottomCollider.localPosition = new Vector3(0f, (-Height / 2f), 0f);
+            bottomCollider.localScale = new Vector3(Width, 1f, 1f);
             AllBlocks.FillGrid(this, Height);
         }
 
@@ -193,7 +198,7 @@ namespace Project
         /// <param name="x"></param>
         /// <param name="y"></param>
         /// <returns></returns>
-        public Block MoveBlock(Block block, int x, int y)
+        public Block MoveBlock(Block block, int x, int y, bool snapToPosition = true)
         {
             Block oldBlock = null;
             if ((block != null) && (block.isActiveAndEnabled == true) && (IsValidGridPosition(x, y) == true))
@@ -203,12 +208,14 @@ namespace Project
 
                 // Update block position
                 Vector2Int gridPosition = new Vector2Int(x, y);
+                if (snapToPosition == true)
+                {
+                    // Convert to world position
+                    Vector3 worldPosition = ConvertGridToWorldPosition(gridPosition);
 
-                // Convert to world position
-                Vector3 worldPosition = ConvertGridToWorldPosition(gridPosition);
-
-                // Update the transform
-                block.transform.position = worldPosition;
+                    // Update the transform
+                    block.transform.position = worldPosition;
+                }
 
                 // Check if the block had a valid position
                 if(IsValidGridPosition(block.GridPosition) == true)
@@ -234,9 +241,9 @@ namespace Project
         /// <param name="block"></param>
         /// <param name="gridPosition"></param>
         /// <returns></returns>
-        public Block MoveBlock(Block block, Vector2Int gridPosition)
+        public Block MoveBlock(Block block, Vector2Int gridPosition, bool snapToPosition)
         {
-            return MoveBlock(block, gridPosition.x, gridPosition.y);
+            return MoveBlock(block, gridPosition.x, gridPosition.y, snapToPosition);
         }
 
         /// <summary>
