@@ -259,8 +259,22 @@ namespace Project
                 // Check if we got a game over
                 if (isGameOver == true)
                 {
-                    // FIXME: check if we got a new high score
+                    // Show the game over screen
                     Singleton.Get<MenuManager>().Show<LevelFailedMenu>();
+
+                    // Attempt to add a new high score
+                    OmiyaGames.Settings.GameSettings settings = Singleton.Get<OmiyaGames.Settings.GameSettings>();
+                    OmiyaGames.Settings.IRecord<int> record;
+                    int placement = settings.HighScores.AddRecord(Score, settings.LastEnteredName, out record);
+
+                    // Check if we got a new high score
+                    if (placement >= 0)
+                    {
+                        // Also show the new high score menu
+                        NewHighScoreMenu menu = Singleton.Get<MenuManager>().GetMenu<NewHighScoreMenu>();
+                        menu.Setup(placement, record);
+                        menu.Show();
+                    }
                 }
             }
             else
