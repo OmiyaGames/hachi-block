@@ -19,6 +19,14 @@ namespace Project
         Image bottomLeft;
         [SerializeField]
         Image bottomRight;
+        [SerializeField]
+        Image topLeftSymbol;
+        [SerializeField]
+        Image topRightSymbol;
+        [SerializeField]
+        Image bottomLeftSymbol;
+        [SerializeField]
+        Image bottomRightSymbol;
 
         [Header("Collections")]
         [SerializeField]
@@ -57,7 +65,8 @@ namespace Project
             private set
             {
                 topLeftBlock = value;
-                UpdateImage(topLeft, value);
+                UpdateImage(topLeft, topLeftBlock.Graphic);
+                UpdateImage(topLeftSymbol, topLeftBlock.Symbol);
             }
         }
 
@@ -70,7 +79,8 @@ namespace Project
             private set
             {
                 topRightBlock = value;
-                UpdateImage(topRight, value);
+                UpdateImage(topRight, topRightBlock.Graphic);
+                UpdateImage(topRightSymbol, topRightBlock.Symbol);
             }
         }
 
@@ -83,7 +93,8 @@ namespace Project
             private set
             {
                 bottomLeftBlock = value;
-                UpdateImage(bottomLeft, value);
+                UpdateImage(bottomLeft, bottomLeftBlock.Graphic);
+                UpdateImage(bottomLeftSymbol, bottomLeftBlock.Symbol);
             }
         }
 
@@ -96,7 +107,8 @@ namespace Project
             private set
             {
                 bottomRightBlock = value;
-                UpdateImage(bottomRight, value);
+                UpdateImage(bottomRight, bottomRightBlock.Graphic);
+                UpdateImage(bottomRightSymbol, bottomRightBlock.Symbol);
             }
         }
 
@@ -185,12 +197,12 @@ namespace Project
             Selectable.interactable = (collection.IsAllEnabled && isEnabled);
         }
 
-        private static void UpdateImage(Image image, Block prefab)
+        private static void UpdateImage(Image image, SpriteRenderer prefab)
         {
             if ((image != null) && (prefab != null))
             {
-                image.sprite = prefab.Graphic.sprite;
-                image.color = prefab.Graphic.color;
+                image.sprite = prefab.sprite;
+                image.color = prefab.color;
             }
         }
     }

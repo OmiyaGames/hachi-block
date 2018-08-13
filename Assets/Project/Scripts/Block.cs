@@ -39,6 +39,8 @@ namespace Project
         [SerializeField]
         SpriteRenderer graphic;
         [SerializeField]
+        SpriteRenderer symbol;
+        [SerializeField]
         float gravity = 9.81f;
 
         [Header("Animation")]
@@ -152,6 +154,14 @@ namespace Project
                     cacheAnimator = GetComponent<Animator>();
                 }
                 return cacheAnimator;
+            }
+        }
+
+        public SpriteRenderer Symbol
+        {
+            get
+            {
+                return symbol;
             }
         }
         #endregion
