@@ -71,6 +71,18 @@ namespace OmiyaGames.Menu
             Manager.SetLabelTextToReturnToMenu(mReturnToMenuLabel);
         }
 
+        public void OnNewGameClicked()
+        {
+            if (IsListeningToEvents == true)
+            {
+                if (Project.LastGameSettings.Instance != null)
+                {
+                    Project.LastGameSettings.Instance.Reset();
+                }
+                OnRestartClicked();
+            }
+        }
+
         void OnApplicationPause(bool isPaused)
         {
             if ((isPaused == true) && (CurrentVisibility == VisibilityState.Hidden) && (Singleton.Get<TimeManager>().IsManuallyPaused == false))

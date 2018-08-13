@@ -80,14 +80,14 @@ namespace Project
         {
             // Bind to moves
             scanner.OnMove += Scanner_OnMove;
+            nextShowStage = CurrentStage.NumMoves;
 
             // Wait for a few seconds
             yield return new WaitForSeconds(waitFor);
 
             // Show the first stage
-            if(currentStage == 0)
+            if ((currentStage == 0) && (scanner.NumMoves < nextShowStage))
             {
-                nextShowStage = CurrentStage.NumMoves;
                 stageId = PopUps.ShowNewDialog(CurrentStage.GetMessage(scanner));
             }
         }

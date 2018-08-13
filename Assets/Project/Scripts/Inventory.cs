@@ -62,7 +62,7 @@ namespace Project
             {
                 return topLeftBlock;
             }
-            private set
+            set
             {
                 topLeftBlock = value;
                 UpdateImage(topLeft, topLeftBlock.Graphic);
@@ -76,7 +76,7 @@ namespace Project
             {
                 return topRightBlock;
             }
-            private set
+            set
             {
                 topRightBlock = value;
                 UpdateImage(topRight, topRightBlock.Graphic);
@@ -90,7 +90,7 @@ namespace Project
             {
                 return bottomLeftBlock;
             }
-            private set
+            set
             {
                 bottomLeftBlock = value;
                 UpdateImage(bottomLeft, bottomLeftBlock.Graphic);
@@ -104,7 +104,7 @@ namespace Project
             {
                 return bottomRightBlock;
             }
-            private set
+           set
             {
                 bottomRightBlock = value;
                 UpdateImage(bottomRight, bottomRightBlock.Graphic);
@@ -137,11 +137,6 @@ namespace Project
             }
         }
         #endregion
-
-        private void Start()
-        {
-            Shuffle();
-        }
 
         public void Sync(Inventory other)
         {

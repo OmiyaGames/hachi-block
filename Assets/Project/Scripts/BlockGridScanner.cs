@@ -128,14 +128,6 @@ namespace Project
         [SerializeField]
         Delay animationDelays = new Delay();
 
-        [Header("Debug Info")]
-        [SerializeField]
-        [Community.UI.ReadOnly]
-        int numMoves = 0;
-        [SerializeField]
-        [Community.UI.ReadOnly]
-        int score = 0;
-
         ulong[] lastTopRowBlockIds = null;
 
         #region Properties
@@ -148,12 +140,12 @@ namespace Project
         {
             get
             {
-                return numMoves;
+                return LastGameSettings.Instance.NumberOfMoves;
             }
             private set
             {
-                numMoves = value;
-                movesLabel.text = numMoves.ToString();
+                LastGameSettings.Instance.NumberOfMoves = value;
+                movesLabel.text = value.ToString();
             }
         }
 
@@ -161,12 +153,12 @@ namespace Project
         {
             get
             {
-                return score;
+                return LastGameSettings.Instance.Score;
             }
             private set
             {
-                score = value;
-                scoreLabel.text = score.ToString();
+                LastGameSettings.Instance.Score = value;
+                scoreLabel.text = value.ToString();
             }
         }
 
@@ -209,6 +201,9 @@ namespace Project
                     lastTopRowBlockIds[x] = checkBlock.Id;
                 }
             }
+
+            movesLabel.text = NumMoves.ToString();
+            scoreLabel.text = Score.ToString();
         }
 
         public IEnumerator AnimateScan(InventoryCollection enable)
@@ -268,6 +263,7 @@ namespace Project
 
             // Re-enable inventory
             enable.IsAllEnabled = true;
+            LastGameSettings.Instance.SaveSettings();
             OnMove?.Invoke(this);
         }
 

@@ -41,7 +41,10 @@ namespace Project
                 Cells[x] = updateCell;
             }
 
-            Shuffle();
+            if (LastGameSettings.Instance.RestorePreviewSettings() == false)
+            {
+                Shuffle();
+            }
         }
 
         public void Shuffle()
