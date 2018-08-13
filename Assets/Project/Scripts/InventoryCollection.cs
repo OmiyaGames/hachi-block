@@ -1,6 +1,4 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
 namespace Project
 {
@@ -9,9 +7,13 @@ namespace Project
         [SerializeField]
         Inventory[] allInventories;
         [SerializeField]
+        UnityEngine.UI.Button shuffleButton;
+        [SerializeField]
         BlockGridScanner scanner;
+        [SerializeField]
+        BlockCursor cursor;
 
-        bool isAllEnabled = true;
+        bool isAllEnabled = true, isShuffleEnabled = true;
 
         public Inventory[] AllInventories
         {
@@ -27,16 +29,6 @@ namespace Project
             set;
         }
 
-        public void ShuffleAll()
-        {
-            foreach(Inventory inventory in AllInventories)
-            {
-                inventory.Shuffle();
-            }
-
-            StartCoroutine(scanner.AnimateScan(this));
-        }
-
         public bool IsAllEnabled
         {
             get
@@ -46,10 +38,52 @@ namespace Project
             set
             {
                 isAllEnabled = value;
-                foreach(Inventory item in AllInventories)
+                foreach (Inventory item in AllInventories)
                 {
                     item.UpdateControl();
                 }
+                UpdateShuffleButton();
+            }
+        }
+
+        public bool IsShuffleEnabled
+        {
+            get
+            {
+                return isShuffleEnabled;
+            }
+            set
+            {
+                isShuffleEnabled = value;
+                UpdateShuffleButton();
+            }
+        }
+
+        public void ShuffleAll()
+        {
+            // Reset the cursor
+            cursor.SelectedInventory = null;
+
+            // Shuffle the inventory
+            foreach (Inventory inventory in AllInventories)
+            {
+                inventory.Shuffle();
+            }
+
+            // Forcefully proceed a step
+            StartCoroutine(scanner.AnimateScan(this));
+        }
+
+        private void UpdateShuffleButton()
+        {
+            // Update the shuffle button
+            if (IsAllEnabled == true)
+            {
+                shuffleButton.interactable = IsShuffleEnabled;
+            }
+            else
+            {
+                shuffleButton.interactable = false;
             }
         }
     }
