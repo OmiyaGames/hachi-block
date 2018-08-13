@@ -38,20 +38,10 @@ namespace Project
         [SerializeField]
         BlockGrid grid;
 
-        [Header("Debug Info")]
-        [SerializeField]
-        [ReadOnly]
         Block topLeftBlock;
-        [SerializeField]
-        [ReadOnly]
         Block topRightBlock;
-        [SerializeField]
-        [ReadOnly]
         Block bottomLeftBlock;
-        [SerializeField]
-        [ReadOnly]
         Block bottomRightBlock;
-
         Selectable selectable = null;
         bool isEnabled = true;
 
