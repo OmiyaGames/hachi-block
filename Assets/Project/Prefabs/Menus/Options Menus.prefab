@@ -22566,7 +22566,7 @@ MonoBehaviour:
     enabledFor: 0
   graphicsButton:
     component: {fileID: 114426317589638632}
-    enabledFor: -1
+    enabledFor: 0
   accessibilityButton:
     component: {fileID: 114680358224818384}
     enabledFor: -1
