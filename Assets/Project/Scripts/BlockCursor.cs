@@ -23,9 +23,6 @@ namespace Project
         [Header("Inventory")]
         [SerializeField]
         Inventory cursorInventory;
-        [SerializeField]
-        [ReadOnly]
-        Inventory selectedInventory;
 
         [Header("Sounds")]
         [SerializeField]
@@ -39,6 +36,7 @@ namespace Project
         [SerializeField]
         SoundEffect shuffleSound;
 
+        Inventory selectedInventory;
         Vector3 originalLocation;
         RaycastHit hit;
         Ray ray;

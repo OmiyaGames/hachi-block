@@ -17,28 +17,13 @@ namespace Project
         [SerializeField]
         string visibilityFlag = "Visible";
 
-        [Header("Debugging Info")]
-        [SerializeField]
-        [ReadOnly]
-        Vector2Int gridPosition = new Vector2Int(-1, -1);
-
         public SelectionGrid Grid
         {
             get;
             set;
         }
 
-        public Vector2Int GridPosition
-        {
-            get
-            {
-                return gridPosition;
-            }
-            set
-            {
-                gridPosition = value;
-            }
-        }
+        public Vector2Int GridPosition { get; set; } = new Vector2Int(-1, -1);
 
         public bool IsSelected
         {

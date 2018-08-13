@@ -50,16 +50,8 @@ namespace Project
         [SerializeField]
         string placedTriggerName = "Placed";
 
-        [Header("Debugging Info")]
-        [SerializeField]
-        [ReadOnly]
-        Vector2Int gridPosition = new Vector2Int(-1, -1);
-        [SerializeField]
-        [ReadOnly]
-        State state = State.Idle;
-
         static ulong nextId = (IdNull + 1);
-
+        State state = State.Idle;
         float velocity = 0;
         Animator cacheAnimator = null;
         Action<float> everyFrame = null;
@@ -90,17 +82,7 @@ namespace Project
             }
         }
 
-        public Vector2Int GridPosition
-        {
-            get
-            {
-                return gridPosition;
-            }
-            set
-            {
-                gridPosition = value;
-            }
-        }
+        public Vector2Int GridPosition { get; set; } = new Vector2Int(-1, -1);
 
         public SpriteRenderer Graphic
         {
@@ -208,8 +190,7 @@ namespace Project
 
         public void ResetPosition()
         {
-            gridPosition.x = -1;
-            gridPosition.y = -1;
+            GridPosition = new Vector2Int(-1, -1);
             MarkHidden();
         }
 
