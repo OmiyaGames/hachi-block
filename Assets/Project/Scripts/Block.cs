@@ -2,6 +2,7 @@
 using Community.UI;
 using OmiyaGames;
 using System;
+using OmiyaGames.Global;
 
 namespace Project
 {
@@ -9,16 +10,19 @@ namespace Project
     [RequireComponent(typeof(Animator))]
     public class Block : IPooledObject
     {
+        public const uint IdNull = 0;
+
         public enum BlockType
         {
             Invalid = -1,
-            Base,
-            Light,
-            Dark,
-            Strange,
-            Quartz,
-            Lift,
-            Drop
+            Hitotsu,
+            Futatsu,
+            Mittsu,
+            Yottsu,
+            Itutsu,
+            Muttsu,
+            Nanatsu,
+            Yattsu
         }
 
         public enum State
@@ -51,11 +55,30 @@ namespace Project
         [ReadOnly]
         State state = State.Idle;
 
+        static uint nextId = (IdNull + 1);
+
+        float velocity = 0;
         Animator cacheAnimator = null;
         Action<float> everyFrame = null;
-        float velocity = 0;
 
         #region Properties
+        public static uint NextId
+        {
+            get
+            {
+                uint returnId = nextId;
+                if(nextId < uint.MaxValue)
+                {
+                    ++nextId;
+                }
+                else
+                {
+                    nextId = (IdNull + 1);
+                }
+                return returnId;
+            }
+        }
+
         public BlockType Type
         {
             get
@@ -103,7 +126,7 @@ namespace Project
                     state = value;
                     CacheAnimator.SetInteger(stateFieldName, (int)state);
 
-                    AfterDeactivate(null);
+                    UnbindFromSingleton();
                     if (state == State.Fall)
                     {
                         velocity = 0;
@@ -113,6 +136,12 @@ namespace Project
                 }
             }
         }
+
+        public uint Id
+        {
+            get;
+            private set;
+        } = IdNull;
 
         Animator CacheAnimator
         {
@@ -145,9 +174,27 @@ namespace Project
             MarkHidden();
         }
 
-        public override void AfterDeactivate(OmiyaGames.Global.PoolingManager pool)
+        public override void Initialized(PoolingManager manager)
+        {
+            base.Initialized(manager);
+            Id = NextId;
+        }
+
+        public override void Activated(PoolingManager manager)
+        {
+            base.Activated(manager);
+            Id = NextId;
+        }
+
+        public override void AfterDeactivate(PoolingManager pool)
         {
             base.AfterDeactivate(pool);
+            Id = IdNull;
+            UnbindFromSingleton();
+        }
+
+        private void UnbindFromSingleton()
+        {
             if (everyFrame != null)
             {
                 Singleton.Instance.OnUpdate -= everyFrame;

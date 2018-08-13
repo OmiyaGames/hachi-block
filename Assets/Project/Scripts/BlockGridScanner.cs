@@ -1,55 +1,12 @@
-﻿using System;
-using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections;
 using UnityEngine;
+using OmiyaGames;
+using OmiyaGames.Menu;
 
 namespace Project
 {
-    public class BlockGridScanner : MonoBehaviour
+    public partial class BlockGridScanner : MonoBehaviour
     {
-        public class DiscoveredFormations
-        {
-            public List<Block[]> RowFormations
-            {
-                get;
-            } = new List<Block[]>();
-
-            public List<Block[]> ColumnFormations
-            {
-                get;
-            } = new List<Block[]>();
-
-            public bool IsFormationFound
-            {
-                get
-                {
-                    return ((RowFormations.Count + ColumnFormations.Count) > 0);
-                }
-            }
-
-            public int NumBlocks
-            {
-                get
-                {
-                    int returnNum = 0;
-                    foreach (Block[] formation in RowFormations)
-                    {
-                        returnNum = formation.Length;
-                    }
-                    foreach (Block[] formation in ColumnFormations)
-                    {
-                        returnNum = formation.Length;
-                    }
-                    return returnNum;
-                }
-            }
-
-            public void Reset()
-            {
-                RowFormations.Clear();
-                ColumnFormations.Clear();
-            }
-        }
 
         [System.Serializable]
         public class Delay
@@ -59,7 +16,7 @@ namespace Project
             [SerializeField]
             float maxDelayBetweenComboAndElimination = 0.5f;
 
-            // FIXME: figure out a much more elegant way to handle whether a block dropped to the right place or not
+            // TODO: figure out a much more elegant way to handle whether a block dropped to the right place or not
             [SerializeField]
             float maxDropWaitTime = 1f;
 
@@ -114,6 +71,40 @@ namespace Project
             }
         }
 
+        [System.Serializable]
+        public class ScoreCalculator
+        {
+            [SerializeField]
+            int baseScore = 10;
+            [SerializeField]
+            float multiplierForExtraBlocks = 2;
+            [SerializeField]
+            float incrementMultiplierPerComboBy = 0.5f;
+            [SerializeField]
+            float maxMultiplier = 4f;
+
+            public int GetScore(Block[] formation, int blocksInARow, int comboCounter)
+            {
+                // Calculate base formation score
+                float returnScore = baseScore;
+                returnScore += ((formation.Length - blocksInARow) * multiplierForExtraBlocks);
+
+                // Calculate combo multiplier
+                float comboMultiplier = 1f;
+                comboMultiplier += (incrementMultiplierPerComboBy * comboCounter);
+                if(comboMultiplier > maxMultiplier)
+                {
+                    comboMultiplier = maxMultiplier;
+                }
+
+                // Multiply by combo multiplier
+                returnScore *= comboMultiplier;
+
+                // Round up
+                return Mathf.CeilToInt(returnScore);
+            }
+        }
+
         [SerializeField]
         BlockGrid grid;
         [SerializeField]
@@ -122,16 +113,14 @@ namespace Project
         [SerializeField]
         [Range(3, 12)]
         int numBlocksToDrop = 4;
+        [SerializeField]
+        TMPro.TextMeshProUGUI movesLabel;
 
         [Header("Scoring")]
         [SerializeField]
-        int baseScore = 3;
+        ScoreCalculator scoreCalculator;
         [SerializeField]
-        int scoreForExtraBlocks = 1;
-        [SerializeField]
-        float incrementMultiplierPerComboBy = 0.5f;
-        [SerializeField]
-        float maxMultiplier = 4f;
+        TMPro.TextMeshProUGUI scoreLabel;
 
         [Header("Animations")]
         [SerializeField]
@@ -144,6 +133,8 @@ namespace Project
         [SerializeField]
         [Community.UI.ReadOnly]
         int score = 0;
+
+        uint[] lastTopRowBlockIds = null;
 
         #region Properties
         public DiscoveredFormations ScannedFormations
@@ -160,6 +151,7 @@ namespace Project
             private set
             {
                 numMoves = value;
+                movesLabel.text = numMoves.ToString();
             }
         }
 
@@ -172,6 +164,7 @@ namespace Project
             private set
             {
                 score = value;
+                scoreLabel.text = score.ToString();
             }
         }
 
@@ -194,7 +187,7 @@ namespace Project
             enable.IsAllEnabled = false;
 
             // Drop blocks first; let them contribute to the combos
-            yield return DropNewBlocks(numBlocksToDrop);
+            DropNewBlocks(numBlocksToDrop);
             yield return StartCoroutine(AnimateBlocksDropping());
 
             // Scan for any formations
@@ -202,11 +195,8 @@ namespace Project
             while (isFormationFound == true)
             {
                 // Calculate the score
-                UpdateScore(formations);
-
-                // Update combo counter
-                comboCount += formations.RowFormations.Count;
-                comboCount += formations.ColumnFormations.Count;
+                formations.SortLists();
+                UpdateScore(formations, ref comboCount);
 
                 // Update blocks to indicate they're now in combo state
                 yield return StartCoroutine(UpdateFormation(formations, Block.State.Combo));
@@ -239,54 +229,87 @@ namespace Project
                 formations = ScanFormations(comboCount, out isFormationFound);
             }
 
+            // Check if the player should end the game or not.
+            CheckGameOver();
+
             // Re-enable inventory
             enable.IsAllEnabled = true;
         }
 
-        private void UpdateScore(DiscoveredFormations formations)
+        private void CheckGameOver()
         {
-            // FIXME: do something!
-            //throw new NotImplementedException();
+            // Check if we're already keeping track of the top row
+            Block checkBlock;
+            if (lastTopRowBlockIds != null)
+            {
+                // Go through the grid's top row
+                bool isGameOver = false;
+                for (int x = 0; x < grid.Width; ++x)
+                {
+                    // Check if this block was at the top row on the previous move
+                    checkBlock = grid.Blocks[x, (grid.Height - 1)];
+                    if ((checkBlock != null) && (checkBlock.Id == lastTopRowBlockIds[x]))
+                    {
+                        // If so, indicate game over
+                        isGameOver = true;
+                        break;
+                    }
+                }
+
+                // Check if we got a game over
+                if (isGameOver == true)
+                {
+                    // FIXME: check if we got a new high score
+                    Singleton.Get<MenuManager>().Show<LevelFailedMenu>();
+                }
+            }
+            else
+            {
+                // Create cache
+                lastTopRowBlockIds = new uint[grid.Width];
+            }
+
+            // Go through the grid's top row
+            for (int x = 0; x < grid.Width; ++x)
+            {
+                checkBlock = grid.Blocks[x, (grid.Height - 1)];
+                if (checkBlock == null)
+                {
+                    lastTopRowBlockIds[x] = Block.IdNull;
+                }
+                else
+                {
+                    lastTopRowBlockIds[x] = checkBlock.Id;
+                }
+            }
+        }
+
+        private void UpdateScore(DiscoveredFormations formations, ref int comboCounter)
+        {
+            // Go through each formation
+            foreach (Block[] formation in formations.AllFormations)
+            {
+                // Increment score
+                Score += scoreCalculator.GetScore(formation, BlocksInARow, comboCounter);
+                ++comboCounter;
+            }
         }
 
         private void RemoveFormations(DiscoveredFormations formations)
         {
-            foreach (Block[] formation in formations.RowFormations)
+            foreach (Block block in formations.AllClearedBlocks)
             {
-                foreach (Block block in formation)
-                {
-                    grid.RemoveBlock(block.GridPosition);
-                }
-            }
-            foreach (Block[] formation in formations.ColumnFormations)
-            {
-                foreach (Block block in formation)
-                {
-                    grid.RemoveBlock(block.GridPosition);
-                }
+                grid.RemoveBlock(block.GridPosition);
             }
         }
 
         private IEnumerator UpdateFormation(DiscoveredFormations formations, Block.State toState)
         {
-            foreach (Block[] formation in formations.RowFormations)
+            foreach (Block block in formations.AllClearedBlocks)
             {
-                foreach (Block block in formation)
+                if (UpdateFormationBlock(block, toState) == true)
                 {
-                    if (UpdateFormationBlock(block, toState) == true)
-                    {
-                        yield return animationDelays.WaitForStaggerFormation;
-                    }
-                }
-            }
-            foreach (Block[] formation in formations.ColumnFormations)
-            {
-                foreach (Block block in formation)
-                {
-                    if (UpdateFormationBlock(block, toState) == true)
-                    {
-                        yield return animationDelays.WaitForStaggerFormation;
-                    }
+                    yield return animationDelays.WaitForStaggerFormation;
                 }
             }
         }
@@ -309,20 +332,23 @@ namespace Project
         /// <returns></returns>
         private int DropNewBlocks(int numBlocksToDrop)
         {
+            // FIXME: the argument should take in an array
             ++NumMoves;
 
             Block[] row = new Block[grid.Width];
 
-            for(int x = 0; x < numBlocksToDrop; ++x)
+            for (int x = 0; x < numBlocksToDrop; ++x)
             {
                 row[x] = grid.AllBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
             }
-            OmiyaGames.Utility.ShuffleList<Block>(row, numBlocksToDrop);
+            Utility.ShuffleList<Block>(row, numBlocksToDrop);
 
             // Actually drop blocks
             for (int x = 0; x < grid.Width; ++x)
             {
-                if(row[x] != null)
+                // Make sure the row to drop blocks contains a block,
+                // and the grid has an empty cell
+                if ((row[x] != null) && (grid.Blocks[x, (grid.Height - 1)] == null))
                 {
                     grid.CreateBlock(row[x], x, (grid.Height - 1));
                 }
@@ -419,7 +445,7 @@ namespace Project
 
                         // Get maximum gap
                         gap = (y - emptyIndex);
-                        if(maxGap < gap)
+                        if (maxGap < gap)
                         {
                             maxGap = gap;
                         }
@@ -431,7 +457,7 @@ namespace Project
             }
 
             // Check if there are any gaps
-            if(maxGap > 0)
+            if (maxGap > 0)
             {
                 yield return animationDelays.WaitForDrop;
             }
@@ -465,14 +491,7 @@ namespace Project
                 Block[] newFormation = CreateNewFormation(x, y, startIndex, endIndex, checkRow);
 
                 // Add this formation in the appropriate list
-                if (checkRow == true)
-                {
-                    ScannedFormations.RowFormations.Add(newFormation);
-                }
-                else
-                {
-                    ScannedFormations.ColumnFormations.Add(newFormation);
-                }
+                ScannedFormations.AddFormation(newFormation, checkRow);
             }
             return endIndex;
         }
