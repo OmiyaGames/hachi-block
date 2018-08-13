@@ -22,6 +22,7 @@ namespace Project
         [Range(3, 10)]
         int numRowsFilledOnStart = 5;
         [SerializeField]
+        [Range(3, 8)]
         int startingNumberOfBlockTypes = 3;
 
         [Header("Cell Dimensions")]
@@ -102,6 +103,14 @@ namespace Project
                 return allBlocks;
             }
         }
+
+        public int StartingNumberOfBlockTypes
+        {
+            get
+            {
+                return startingNumberOfBlockTypes;
+            }
+        }
         #endregion
 
         private void Start()
@@ -117,7 +126,7 @@ namespace Project
                 }
             }
 
-            AllBlocks.FillGrid(this, numRowsFilledOnStart, startingNumberOfBlockTypes, scanner.BlocksInARow);
+            AllBlocks.FillGrid(this, numRowsFilledOnStart, StartingNumberOfBlockTypes, scanner.BlocksInARow);
         }
 
         /// <summary>

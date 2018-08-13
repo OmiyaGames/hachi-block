@@ -19,7 +19,7 @@ namespace Project
         /// 
         /// </summary>
         /// <returns></returns>
-        public Block RandomBlockPrefab(int maxNumBlockTypes = 3)
+        public Block RandomBlockPrefab(int maxNumBlockTypes)
         {
             maxNumBlockTypes = Mathf.Clamp(maxNumBlockTypes, 1, allBlockTypes.Length);
             return allBlockTypes[Random.Range(0, maxNumBlockTypes)];

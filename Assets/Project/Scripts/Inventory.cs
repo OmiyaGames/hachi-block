@@ -27,6 +27,8 @@ namespace Project
         BlockCursor cursor;
         [SerializeField]
         InventoryCollection collection;
+        [SerializeField]
+        BlockGrid grid;
 
         [Header("Debug Info")]
         [SerializeField]
@@ -163,10 +165,10 @@ namespace Project
 
         public void Shuffle()
         {
-            TopLeftBlock = allBlocks.RandomBlockPrefab();
-            TopRightBlock = allBlocks.RandomBlockPrefab();
-            BottomLeftBlock = allBlocks.RandomBlockPrefab();
-            BottomRightBlock = allBlocks.RandomBlockPrefab();
+            TopLeftBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
+            TopRightBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
+            BottomLeftBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
+            BottomRightBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
         }
 
         public void Rotate()

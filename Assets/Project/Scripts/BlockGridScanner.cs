@@ -119,6 +119,9 @@ namespace Project
         [SerializeField]
         [Range(3, 5)]
         int blocksInARow = 4;
+        [SerializeField]
+        [Range(3, 12)]
+        int numBlocksToDrop = 4;
 
         [Header("Scoring")]
         [SerializeField]
@@ -191,7 +194,7 @@ namespace Project
             enable.IsAllEnabled = false;
 
             // Drop blocks first; let them contribute to the combos
-            DropNewBlocks();
+            yield return DropNewBlocks(numBlocksToDrop);
             yield return StartCoroutine(AnimateBlocksDropping());
 
             // Scan for any formations
@@ -304,10 +307,26 @@ namespace Project
         /// 
         /// </summary>
         /// <returns></returns>
-        private int DropNewBlocks()
+        private int DropNewBlocks(int numBlocksToDrop)
         {
-            // FIXME: actually drop blocks
             ++NumMoves;
+
+            Block[] row = new Block[grid.Width];
+
+            for(int x = 0; x < numBlocksToDrop; ++x)
+            {
+                row[x] = grid.AllBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
+            }
+            OmiyaGames.Utility.ShuffleList<Block>(row, numBlocksToDrop);
+
+            // Actually drop blocks
+            for (int x = 0; x < grid.Width; ++x)
+            {
+                if(row[x] != null)
+                {
+                    grid.CreateBlock(row[x], x, (grid.Height - 1));
+                }
+            }
             return NumMoves;
         }
 
