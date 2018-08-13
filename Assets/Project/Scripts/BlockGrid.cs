@@ -39,6 +39,14 @@ namespace Project
         [SerializeField]
         GameDifficulty difficulty;
 
+        [Header("Sounds")]
+        [SerializeField]
+        OmiyaGames.Audio.SoundEffect blockLand;
+        [SerializeField]
+        OmiyaGames.Audio.SoundEffect blockPlop;
+        [SerializeField]
+        OmiyaGames.Audio.SoundEffect blockRemove;
+
         Block[,] grid = null;
         GameObject[] allBackgroundCells = null;
 
@@ -188,6 +196,9 @@ namespace Project
             {
                 // Grab a block from the pool
                 returnBlock = Pool.GetInstance<Block>(blockType);
+                returnBlock.LandSound = blockLand;
+                returnBlock.PopSound = blockPlop;
+                returnBlock.RemoveSound = blockRemove;
                 MoveBlock(returnBlock, x, y);
             }
             return returnBlock;

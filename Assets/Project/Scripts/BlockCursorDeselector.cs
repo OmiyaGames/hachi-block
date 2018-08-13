@@ -14,7 +14,7 @@ namespace Project
         {
             if (eventData.button == PointerEventData.InputButton.Left)
             {
-                cursor.Deselect();
+                cursor.HideCursor(BlockCursor.SoundType.Cancel);
             }
         }
     }

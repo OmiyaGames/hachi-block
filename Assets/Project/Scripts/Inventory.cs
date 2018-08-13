@@ -169,9 +169,9 @@ namespace Project
 
         public void OnPointerDown(PointerEventData eventData)
         {
-            if(IsEnabled == true)
+            if (IsEnabled == true)
             {
-                cursor.SelectedInventory = this;
+                cursor.ChangeCursorTo(this);
             }
         }
 

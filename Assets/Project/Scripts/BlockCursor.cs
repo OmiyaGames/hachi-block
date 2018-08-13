@@ -1,10 +1,18 @@
 ﻿using UnityEngine;
 using Community.UI;
+using OmiyaGames.Audio;
 
 namespace Project
 {
     public class BlockCursor : MonoBehaviour
     {
+        public enum SoundType
+        {
+            Cancel,
+            Drop,
+            Shuffle
+        }
+
         [SerializeField]
         Camera mainCamera;
         [SerializeField]
@@ -18,6 +26,18 @@ namespace Project
         [SerializeField]
         [ReadOnly]
         Inventory selectedInventory;
+
+        [Header("Sounds")]
+        [SerializeField]
+        SoundEffect pickUpSound;
+        [SerializeField]
+        SoundEffect rotateSound;
+        [SerializeField]
+        SoundEffect cancelSound;
+        [SerializeField]
+        SoundEffect dropSound;
+        [SerializeField]
+        SoundEffect shuffleSound;
 
         Vector3 originalLocation;
         RaycastHit hit;
@@ -38,7 +58,7 @@ namespace Project
             {
                 return selectedInventory;
             }
-            set
+            private set
             {
                 if (selectedInventory != null)
                 {
@@ -69,24 +89,58 @@ namespace Project
         // Update is called once per frame
         void Update()
         {
+            ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+            if (plane.Raycast(ray, out distance) == true)
+            {
+                transform.position = ray.GetPoint(distance);
+            }
             if (IsDragging == true)
             {
-                ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                if (plane.Raycast(ray, out distance) == true)
-                {
-                    transform.position = ray.GetPoint(distance);
-                }
                 if ((Input.GetMouseButtonUp(1) == true) || (Input.GetButtonUp("Rotate") == true) || (Input.GetButtonUp("Submit") == true))
                 {
                     cursorInventory.Rotate();
                     SelectedInventory.Rotate();
+                    Play(rotateSound);
                 }
             }
         }
 
-        public void Deselect()
+        public void ChangeCursorTo(Inventory inventory)
+        {
+            SelectedInventory = inventory;
+        }
+
+        public void HideCursor(SoundType sound)
         {
             SelectedInventory = null;
+            switch (sound)
+            {
+                case SoundType.Shuffle:
+                    Play(shuffleSound);
+                    break;
+                case SoundType.Drop:
+                    Play(dropSound);
+                    break;
+                default:
+                    Play(cancelSound);
+                    break;
+            }
+        }
+
+        private static void Play(SoundEffect sound)
+        {
+            if (sound != null)
+            {
+                sound.Play();
+            }
+        }
+
+        private static void Stop(SoundEffect sound)
+        {
+            if (sound != null)
+            {
+                sound.Stop();
+            }
         }
     }
 }

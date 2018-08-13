@@ -62,7 +62,7 @@ namespace Project
         public void ShuffleAll()
         {
             // Reset the cursor
-            cursor.SelectedInventory = null;
+            cursor.HideCursor(BlockCursor.SoundType.Shuffle);
 
             // Shuffle the inventory
             foreach (Inventory inventory in AllInventories)
