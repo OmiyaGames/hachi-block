@@ -1935,7 +1935,9 @@ MonoBehaviour:
   - {fileID: 114469215904087294}
   - {fileID: 114613436491314024}
   - {fileID: 114709896212693882}
+  shuffleButton: {fileID: 114068416910696582}
   scanner: {fileID: 114085272604447942}
+  cursor: {fileID: 114644571116447880}
 --- !u!114 &114469215904087294
 MonoBehaviour:
   m_ObjectHideFlags: 1

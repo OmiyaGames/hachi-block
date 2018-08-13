@@ -1,9 +1,7 @@
 ﻿using UnityEngine;
 using UnityEngine.UI;
-using OmiyaGames;
 using OmiyaGames.Menu;
 using OmiyaGames.Settings;
-using System;
 using TMPro;
 
 namespace Project
@@ -81,28 +79,23 @@ namespace Project
 
         public void Setup(int highScorePlacement, IRecord<int> newScore)
         {
-            Setup(highScorePlacement, newScore, -1, null);
-        }
-
-        public void Setup(int timePlacement, IRecord<float> newTime)
-        {
-            Setup(-1, null, timePlacement, newTime);
-        }
-
-        public void Setup(int highScorePlacement, IRecord<int> checkScore, int timePlacement, IRecord<float> checkTime)
-        {
-            newScore = null;
-            if((highScorePlacement >= 0) && (checkScore != null))
-            {
-                newScore = checkScore;
-            }
-
             scorePlacementLabel.gameObject.SetActive(newScore != null);
             scoreLabel.gameObject.SetActive(newScore != null);
             if (newScore != null)
             {
                 UpdateLabel(scorePlacementLabel, (highScorePlacement + 1).ToString(), ref originalScorePlacementText);
-                UpdateLabel(scoreLabel, checkScore.Record.ToString(), ref originalScoreText);
+                UpdateLabel(scoreLabel, newScore.Record.ToString(), ref originalScoreText);
+            }
+        }
+
+        public void OnRestartClicked()
+        {
+            if (IsListeningToEvents == true)
+            {
+                // FIXME: Notify the player that they'll lose their unsaved progress.
+                // Transition to the current level
+                SceneChanger.ReloadCurrentScene();
+                Hide();
             }
         }
 
