@@ -14,13 +14,9 @@ namespace Project
         [SerializeField]
         MenuNavigator navigator;
 
-        [Header("Buttons")]
-        [SerializeField]
-        Button defaultButton = null;
+        [Header("Labels")]
         [SerializeField]
         TMP_InputField nameField;
-
-        [Header("Labels")]
         [SerializeField]
         TextMeshProUGUI scorePlacementLabel;
         [SerializeField]
@@ -51,12 +47,7 @@ namespace Project
         {
             get
             {
-                Selectable returnObject = null;
-                if (defaultButton != null)
-                {
-                    returnObject = defaultButton;
-                }
-                return returnObject;
+                return nameField;
             }
         }
 
@@ -93,9 +84,10 @@ namespace Project
             if (IsListeningToEvents == true)
             {
                 // FIXME: Notify the player that they'll lose their unsaved progress.
+                RecordNewHighScore();
+
                 // Transition to the current level
                 SceneChanger.ReloadCurrentScene();
-                Hide();
             }
         }
 
@@ -109,18 +101,24 @@ namespace Project
             }
             else if (to == VisibilityState.Hidden)
             {
-                // Record the new name!
-                if (newScore != null)
-                {
-                    newScore.Name = nameField.text;
-                }
-
-                // Store this name for the next gameplay as well
-                Settings.LastEnteredName = nameField.text;
+                RecordNewHighScore();
             }
 
             // Call base method
             base.OnStateChanged(from, to);
+        }
+
+        private void RecordNewHighScore()
+        {
+            // Record the new name!
+            if (newScore != null)
+            {
+                newScore.Name = nameField.text;
+            }
+
+            // Store this name for the next gameplay as well
+            Settings.LastEnteredName = nameField.text;
+            Settings.SaveSettings();
         }
 
         private void UpdateLabel(TextMeshProUGUI label, string info, ref string originalString)

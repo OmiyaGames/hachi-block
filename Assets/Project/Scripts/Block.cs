@@ -190,6 +190,7 @@ namespace Project
         {
             base.AfterDeactivate(pool);
             Id = IdNull;
+            ResetPosition();
             UnbindFromSingleton();
         }
 
