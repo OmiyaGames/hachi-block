@@ -69,7 +69,7 @@ Options Time Scale,Time Scale,,
 Options Time Scale Message,"If enabled, allows one to adjust the speed of how the game progresses. This includes the speed of movement, animations, physics, etc.",,
 Options Enable,Enable,,
 Options Invincibility,Invincibility Mode,,
-Options Invincibility Message,"Enabling this mode prevents the player from taking any damage.",,
+Options Invincibility Message,Enabling this mode prevents the player from taking any damage.,,
 Hack Warning Title,"Uh, oh.",おや？,
 Hack Warning Intro,Someone besides the original developers may have uploaded this game without their permission. How can they tell?,,
 Hack Warning Reasoning Not Genuine,Internal tests confirm this game is not genuine.,,
@@ -87,24 +87,14 @@ Credits Full,"Created by Omiya Games
 <b>Programming</b>
 Taro Omiya
 
-<b>3D Models</b>
+<b>Art</b>
 Taro Omiya
-
-<b>Textures</b>
-“???”
-by Taro Omiya
-<size=38>Licensed under ???
-<link=""license-texture""><u>omiygagames.com/???</u></link></size>
 
 <b>Music</b>
-Taro Omiya
+Muse en Lystrala
 
 <b>Sound</b>
-“Jump” & “Footsteps”
-by Unity
-
-All other sound effects
-by Taro Omiya
+Taro Omiya
 
 <b>Fonts</b>
 ""Noto-Sans""
@@ -126,6 +116,8 @@ For more info, see:
 </u></link>
 
 <b>Thanks to These Patrons!</b>
-???
+Adam R. Vierra
+XanderHD
+poetic android
 
-Thanks for playing!",,
+<b>Thanks for playing!</b>",,
