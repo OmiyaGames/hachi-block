@@ -9,7 +9,9 @@ namespace Project
         [System.Serializable]
         public class Difficulty
         {
-            //public
+            public int scoreThreshold = 500;
+            public int numberOfBlocksToDrop = 4;
+            public int NumberOfBlockTypes = 4;
         }
 
         [SerializeField]
@@ -24,6 +26,22 @@ namespace Project
             {
                 return blocksInARow;
             }
+        }
+
+        public Difficulty GetDifficulty(int score)
+        {
+            int scoreSum = 0;
+            Difficulty difficulty = null;
+            foreach(Difficulty nextDifficulty in allDifficulties)
+            {
+                scoreSum = nextDifficulty.scoreThreshold;
+                difficulty = nextDifficulty;
+                if(score < scoreSum)
+                {
+                    break;
+                }
+            }
+            return difficulty;
         }
     }
 }

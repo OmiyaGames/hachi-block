@@ -21,9 +21,6 @@ namespace Project
         [SerializeField]
         [Range(3, 10)]
         int numRowsFilledOnStart = 5;
-        [SerializeField]
-        [Range(3, 8)]
-        int startingNumberOfBlockTypes = 3;
 
         [Header("Cell Dimensions")]
         [SerializeField]
@@ -114,11 +111,11 @@ namespace Project
             }
         }
 
-        public int StartingNumberOfBlockTypes
+        public int NumberOfBlockTypes
         {
             get
             {
-                return startingNumberOfBlockTypes;
+                return LastGameSettings.Instance.CurrentDifficulty.NumberOfBlockTypes;
             }
         }
         #endregion
@@ -138,7 +135,7 @@ namespace Project
 
             if(LastGameSettings.Instance.RestoreGridSettings() == false)
             {
-                AllBlocks.FillGrid(this, numRowsFilledOnStart, StartingNumberOfBlockTypes, difficulty.BlocksInARow);
+                AllBlocks.FillGrid(this, numRowsFilledOnStart, NumberOfBlockTypes, difficulty.BlocksInARow);
             }
             scanner.Setup();
         }

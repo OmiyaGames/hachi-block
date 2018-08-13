@@ -109,9 +109,6 @@ namespace Project
         [SerializeField]
         BlockGrid grid;
         [SerializeField]
-        [Range(3, 12)]
-        int numBlocksToDrop = 4;
-        [SerializeField]
         TMPro.TextMeshProUGUI movesLabel;
         [SerializeField]
         GameDifficulty gameSettings;
@@ -174,7 +171,7 @@ namespace Project
         {
             get
             {
-                return numBlocksToDrop;
+                return LastGameSettings.Instance.CurrentDifficulty.numberOfBlocksToDrop;
             }
         }
         #endregion
@@ -259,22 +256,29 @@ namespace Project
             }
 
             // Check if the player should end the game or not.
-            CheckGameOver();
-
-            // Re-enable inventory
-            enable.IsAllEnabled = true;
-            LastGameSettings.Instance.SaveSettings();
+            bool isGameOver = CheckGameOver();
+            if(isGameOver == false)
+            {
+                // Re-enable inventory
+                enable.IsAllEnabled = true;
+                LastGameSettings.Instance.SaveSettings();
+            }
+            else
+            {
+                // Reset all stats
+                LastGameSettings.Instance.Reset();
+            }
             OnMove?.Invoke(this);
         }
 
-        private void CheckGameOver()
+        private bool CheckGameOver()
         {
             // Check if we're already keeping track of the top row
+            bool isGameOver = false;
             Block checkBlock;
             if (lastTopRowBlockIds != null)
             {
                 // Go through the grid's top row
-                bool isGameOver = false;
                 for (int x = 0; x < grid.Width; ++x)
                 {
                     // Check if this block was at the top row on the previous move
@@ -310,6 +314,7 @@ namespace Project
             }
 
             Setup();
+            return isGameOver;
         }
 
         private void UpdateScore(DiscoveredFormations formations, ref int comboCounter)
