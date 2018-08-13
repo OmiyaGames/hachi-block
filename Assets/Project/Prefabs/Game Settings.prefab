@@ -52,4 +52,52 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   blocksInARow: 3
-  allDifficulties: []
+  allDifficulties:
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 4
+    NumberOfBlockTypes: 4
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 5
+    NumberOfBlockTypes: 4
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 5
+    NumberOfBlockTypes: 5
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 6
+    NumberOfBlockTypes: 5
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 4
+    NumberOfBlockTypes: 6
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 5
+    NumberOfBlockTypes: 6
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 6
+    NumberOfBlockTypes: 6
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 4
+    NumberOfBlockTypes: 7
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 5
+    NumberOfBlockTypes: 7
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 6
+    NumberOfBlockTypes: 7
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 7
+    NumberOfBlockTypes: 7
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 4
+    NumberOfBlockTypes: 8
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 5
+    NumberOfBlockTypes: 8
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 6
+    NumberOfBlockTypes: 8
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 7
+    NumberOfBlockTypes: 8
+  - scoreThreshold: 500
+    numberOfBlocksToDrop: 8
+    NumberOfBlockTypes: 8

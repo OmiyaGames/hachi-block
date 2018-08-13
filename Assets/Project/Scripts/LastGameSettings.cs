@@ -25,6 +25,9 @@ namespace Project
         [SerializeField]
         GameDifficulty allDifficulties;
 
+        int lastScore = -1;
+        GameDifficulty.Difficulty lastDifficulty = null;
+
         static GameSettings Settings
         {
             get
@@ -57,15 +60,31 @@ namespace Project
             }
         }
 
-        //public GameDifficulty.Difficulty
+        public GameDifficulty.Difficulty CurrentDifficulty
+        {
+            get
+            {
+                if ((lastDifficulty == null) || (lastScore != Score))
+                {
+                    lastDifficulty = allDifficulties.GetDifficulty(Score);
+                    lastScore = Score;
+                }
+                return lastDifficulty;
+            }
+        }
 
         public void Reset()
         {
             NumberOfMoves = 0;
             Score = 0;
+
             Settings.LastGameGrid = "";
             Settings.LastGameInventory = "";
             Settings.LastGamePreview = "";
+            Settings.SaveSettings();
+
+            lastScore = -1;
+            lastDifficulty = null;
         }
 
         public void SaveSettings()

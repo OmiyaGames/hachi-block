@@ -53,7 +53,7 @@ namespace Project
 
             for (int x = 0; x < scanner.NumBlocksToDrop; ++x)
             {
-                row[x] = grid.AllBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
+                row[x] = grid.AllBlocks.RandomBlockPrefab(grid.NumberOfBlockTypes);
             }
             OmiyaGames.Utility.ShuffleList<Block>(row, scanner.NumBlocksToDrop);
 

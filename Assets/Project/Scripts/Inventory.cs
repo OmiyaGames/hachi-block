@@ -172,10 +172,10 @@ namespace Project
 
         public void Shuffle()
         {
-            TopLeftBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
-            TopRightBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
-            BottomLeftBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
-            BottomRightBlock = allBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
+            TopLeftBlock = allBlocks.RandomBlockPrefab(grid.NumberOfBlockTypes);
+            TopRightBlock = allBlocks.RandomBlockPrefab(grid.NumberOfBlockTypes);
+            BottomLeftBlock = allBlocks.RandomBlockPrefab(grid.NumberOfBlockTypes);
+            BottomRightBlock = allBlocks.RandomBlockPrefab(grid.NumberOfBlockTypes);
         }
 
         public void Rotate()
