@@ -7,6 +7,7 @@ namespace Project
 {
     public partial class BlockGridScanner : MonoBehaviour
     {
+        public event System.Action<BlockGridScanner> OnMove;
 
         [System.Serializable]
         public class Delay
@@ -134,7 +135,7 @@ namespace Project
         [Community.UI.ReadOnly]
         int score = 0;
 
-        uint[] lastTopRowBlockIds = null;
+        ulong[] lastTopRowBlockIds = null;
 
         #region Properties
         public DiscoveredFormations ScannedFormations
@@ -234,6 +235,7 @@ namespace Project
 
             // Re-enable inventory
             enable.IsAllEnabled = true;
+            OnMove?.Invoke(this);
         }
 
         private void CheckGameOver()
@@ -280,7 +282,7 @@ namespace Project
             else
             {
                 // Create cache
-                lastTopRowBlockIds = new uint[grid.Width];
+                lastTopRowBlockIds = new ulong[grid.Width];
             }
 
             // Go through the grid's top row

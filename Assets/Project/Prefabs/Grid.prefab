@@ -905,6 +905,7 @@ GameObject:
   - component: {fileID: 114098563205265520}
   - component: {fileID: 114628343293690488}
   - component: {fileID: 114300863145438022}
+  - component: {fileID: 114337493219063482}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -2903,6 +2904,43 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114337493219063482
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1605433701171240}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c2ed2f598f153a748ba1755cdf136940, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  waitFor: 0.5
+  stages:
+  - message: Click on the 2x2 blocks on the right side of the screen to pick it up,
+      then click on the grid to drop it.
+    useScanner: 0
+    numMoves: 1
+  - message: Match {0} or more same-colored blocks horizontally or vertically to score
+      points.
+    useScanner: 1
+    numMoves: 3
+  - message: While dragging the 2x2 blocks, right-click to rotate it.
+    useScanner: 0
+    numMoves: 2
+  - message: Remember that the 2x2 blocks can be dropped anywhere on the grid, <i>even
+      if</i> blocks are occupying that space!
+    useScanner: 0
+    numMoves: 3
+  - message: If you don't like what's on the right side of the screen, or you want
+      more blocks to fall, just click on the "shuffle" button.
+    useScanner: 0
+    numMoves: 2
+  - message: Finally, don't let the blocks reach the top of the screen, or it's game
+      over!
+    useScanner: 0
+    numMoves: 3
+  scanner: {fileID: 114300863145438022}
 --- !u!114 &114349584426698032
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -3541,7 +3579,7 @@ MonoBehaviour:
     m_Top: 0
     m_Bottom: 0
   m_ChildAlignment: 4
-  m_Spacing: 200
+  m_Spacing: 1350
   m_ChildForceExpandWidth: 1
   m_ChildForceExpandHeight: 1
   m_ChildControlWidth: 1
@@ -6354,7 +6392,7 @@ RectTransform:
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: -1250.43, y: 0}
+  m_SizeDelta: {x: -100.42993, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!224 &224551160232319240
 RectTransform:
@@ -6606,7 +6644,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 1}
   m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 459.38998, y: -0}
+  m_AnchoredPosition: {x: 1609.39, y: -0}
   m_SizeDelta: {x: 290.18, y: 180}
   m_Pivot: {x: 0, y: 1}
 --- !u!224 &224777544107108992

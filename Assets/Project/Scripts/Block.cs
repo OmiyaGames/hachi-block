@@ -10,7 +10,7 @@ namespace Project
     [RequireComponent(typeof(Animator))]
     public class Block : IPooledObject
     {
-        public const uint IdNull = 0;
+        public const ulong IdNull = 0;
 
         public enum BlockType
         {
@@ -57,19 +57,19 @@ namespace Project
         [ReadOnly]
         State state = State.Idle;
 
-        static uint nextId = (IdNull + 1);
+        static ulong nextId = (IdNull + 1);
 
         float velocity = 0;
         Animator cacheAnimator = null;
         Action<float> everyFrame = null;
 
         #region Properties
-        public static uint NextId
+        public static ulong NextId
         {
             get
             {
-                uint returnId = nextId;
-                if(nextId < uint.MaxValue)
+                ulong returnId = nextId;
+                if(nextId < ulong.MaxValue)
                 {
                     ++nextId;
                 }
@@ -139,7 +139,7 @@ namespace Project
             }
         }
 
-        public uint Id
+        public ulong Id
         {
             get;
             private set;
