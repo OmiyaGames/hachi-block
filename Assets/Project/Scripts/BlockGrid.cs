@@ -37,7 +37,7 @@ namespace Project
         [SerializeField]
         BlockCollection allBlocks;
         [SerializeField]
-        BlockGridScanner scanner;
+        GameDifficulty difficulty;
 
         Block[,] grid = null;
         GameObject[] allBackgroundCells = null;
@@ -126,7 +126,7 @@ namespace Project
                 }
             }
 
-            AllBlocks.FillGrid(this, numRowsFilledOnStart, StartingNumberOfBlockTypes, scanner.BlocksInARow);
+            AllBlocks.FillGrid(this, numRowsFilledOnStart, StartingNumberOfBlockTypes, difficulty.BlocksInARow);
         }
 
         /// <summary>

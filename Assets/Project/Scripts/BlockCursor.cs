@@ -40,12 +40,12 @@ namespace Project
             }
             set
             {
-                if(selectedInventory != null)
+                if (selectedInventory != null)
                 {
                     selectedInventory.IsEnabled = true;
                 }
                 selectedInventory = value;
-                if(selectedInventory != null)
+                if (selectedInventory != null)
                 {
                     selectedInventory.IsEnabled = false;
                     cursorInventory.Sync(selectedInventory);
@@ -69,14 +69,14 @@ namespace Project
         // Update is called once per frame
         void Update()
         {
-            if(IsDragging == true)
+            if (IsDragging == true)
             {
                 ray = mainCamera.ScreenPointToRay(Input.mousePosition);
-                if(plane.Raycast(ray, out distance) == true)
+                if (plane.Raycast(ray, out distance) == true)
                 {
                     transform.position = ray.GetPoint(distance);
                 }
-                if(Input.GetMouseButtonUp(1) == true)
+                if ((Input.GetMouseButtonUp(1) == true) || (Input.GetButtonUp("Rotate") == true) || (Input.GetButtonUp("Submit") == true))
                 {
                     cursorInventory.Rotate();
                     SelectedInventory.Rotate();

@@ -109,13 +109,12 @@ namespace Project
         [SerializeField]
         BlockGrid grid;
         [SerializeField]
-        [Range(3, 5)]
-        int blocksInARow = 4;
-        [SerializeField]
         [Range(3, 12)]
         int numBlocksToDrop = 4;
         [SerializeField]
         TMPro.TextMeshProUGUI movesLabel;
+        [SerializeField]
+        GameDifficulty gameSettings;
 
         [Header("Scoring")]
         [SerializeField]
@@ -173,7 +172,7 @@ namespace Project
         {
             get
             {
-                return blocksInARow;
+                return gameSettings.BlocksInARow;
             }
         }
         #endregion

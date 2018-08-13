@@ -1904,7 +1904,8 @@ MonoBehaviour:
   emptyCell: {fileID: 1464565545252336, guid: b6dae4b97c20eea448102e7a978dd778, type: 2}
   allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
     type: 2}
-  scanner: {fileID: 114300863145438022}
+  difficulty: {fileID: 114606241404410416, guid: 081c10e195b52bc4992bb65eac856268,
+    type: 2}
 --- !u!114 &114104120281469072
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -2774,9 +2775,10 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   grid: {fileID: 114098563205265520}
-  blocksInARow: 3
   numBlocksToDrop: 4
   movesLabel: {fileID: 114395983510658470}
+  gameSettings: {fileID: 114606241404410416, guid: 081c10e195b52bc4992bb65eac856268,
+    type: 2}
   scoreCalculator:
     baseScore: 10
     multiplierForExtraBlocks: 4
@@ -2919,26 +2921,26 @@ MonoBehaviour:
   stages:
   - message: Click on the 2x2 blocks on the right side of the screen to pick it up,
       then click on the grid to drop it.
-    useScanner: 0
+    needsFormatting: 0
     numMoves: 1
   - message: Match {0} or more same-colored blocks horizontally or vertically to score
       points.
-    useScanner: 1
+    needsFormatting: 1
     numMoves: 3
   - message: While dragging the 2x2 blocks, right-click to rotate it.
-    useScanner: 0
+    needsFormatting: 0
     numMoves: 2
   - message: Remember that the 2x2 blocks can be dropped anywhere on the grid, <i>even
       if</i> blocks are occupying that space!
-    useScanner: 0
+    needsFormatting: 0
     numMoves: 3
   - message: If you don't like what's on the right side of the screen, or you want
       more blocks to fall, just click on the "shuffle" button.
-    useScanner: 0
+    needsFormatting: 0
     numMoves: 2
   - message: Finally, don't let the blocks reach the top of the screen, or it's game
       over!
-    useScanner: 0
+    needsFormatting: 0
     numMoves: 3
   scanner: {fileID: 114300863145438022}
 --- !u!114 &114349584426698032
