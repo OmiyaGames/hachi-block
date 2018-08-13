@@ -41,8 +41,6 @@ namespace OmiyaGames.Menu
         [SerializeField]
         bool pauseGameOnShow = false;
         [SerializeField]
-        TranslatedTextMeshPro mLevelFailedLabel = null;
-        [SerializeField]
         TranslatedTextMeshPro mReturnToMenuLabel = null;
 
         public override bool PauseOnShow
@@ -66,7 +64,6 @@ namespace OmiyaGames.Menu
             base.OnSetup();
 
             // Update labels
-            Manager.SetLabelTextToFailedCurrentScene(mLevelFailedLabel);
             Manager.SetLabelTextToReturnToMenu(mReturnToMenuLabel);
         }
     }

@@ -1943,7 +1943,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1227886200293514
 GameObject:
   m_ObjectHideFlags: 1
@@ -4669,7 +4669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1600584709200160
 GameObject:
   m_ObjectHideFlags: 1
@@ -4900,7 +4900,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1633276365348230
 GameObject:
   m_ObjectHideFlags: 1
@@ -5083,7 +5083,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1653495093259548
 GameObject:
   m_ObjectHideFlags: 1
@@ -7372,7 +7372,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!1 &1939107243488558
 GameObject:
   m_ObjectHideFlags: 1
@@ -19780,11 +19780,11 @@ MonoBehaviour:
     parents:
     - {fileID: 1836722006128592}
   bobbingCameraControls:
-    enableFor: -1
+    enableFor: 0
     checkbox: {fileID: 114869290516540862}
     parents: []
   motionBlursControls:
-    enableFor: -1
+    enableFor: 0
     checkbox: {fileID: 114733949400021856}
     parents: []
   screenFlashesControls:
@@ -19792,7 +19792,7 @@ MonoBehaviour:
     checkbox: {fileID: 114282890257365930}
     parents: []
   bloomControls:
-    enableFor: -1
+    enableFor: 0
     checkbox: {fileID: 114019273382866730}
     parents: []
 --- !u!114 &114426038308010168
@@ -22563,7 +22563,7 @@ MonoBehaviour:
     enabledFor: -1
   controlsButton:
     component: {fileID: 114362123677156842}
-    enabledFor: 15
+    enabledFor: 0
   graphicsButton:
     component: {fileID: 114426317589638632}
     enabledFor: -1
@@ -22572,7 +22572,7 @@ MonoBehaviour:
     enabledFor: -1
   languageButton:
     component: {fileID: 114885418603375630}
-    enabledFor: -1
+    enabledFor: 0
   resetDataButton:
     component: {fileID: 114544755369612654}
     enabledFor: -1
@@ -33606,7 +33606,7 @@ MonoBehaviour:
   stateField: State
   navigator: {fileID: 114576268928629340}
   enableTextSize: -1
-  enableInvincibility: -1
+  enableInvincibility: 0
   enableTimeScale: -1
   dividers:
   - {fileID: 1732710052637818}
@@ -33614,10 +33614,23 @@ MonoBehaviour:
   defaultTextSize: 1
   textSizeSlider: {fileID: 114450563590027852}
   resetTextSize: {fileID: 114376470432841098}
+  textSizeControls:
+  - {fileID: 1730571290116368}
+  - {fileID: 1204320689710390}
+  - {fileID: 1529247359907528}
   invincibilityEnabler: {fileID: 114486607827652880}
+  invincibilityControls:
+  - {fileID: 1112174163605076}
+  - {fileID: 1447039581368090}
+  - {fileID: 1448777266450472}
   defaultTimeScale: 1
   timeScaleSlider: {fileID: 114559204015481576}
   resetTimeScale: {fileID: 114670007737961818}
+  timeScaleControls:
+  - {fileID: 1321687322733396}
+  - {fileID: 1139493565169220}
+  - {fileID: 1440904253411462}
+  - {fileID: 1239206913239146}
 --- !u!114 &114992283275582636
 MonoBehaviour:
   m_ObjectHideFlags: 1
