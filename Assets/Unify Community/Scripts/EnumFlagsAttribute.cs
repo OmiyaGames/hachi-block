@@ -3,6 +3,7 @@ using UnityEditor;
 
 namespace Community.UI
 {
+#if UNITY_EDITOR
     ///-----------------------------------------------------------------------
     /// <copyright file="EnumFlagsAttribute.cs">
     /// Code by Aqibsadiq from Unity Forums:
@@ -45,4 +46,5 @@ namespace Community.UI
             return EditorGUI.MaskField(position, label, property.intValue, enumNames);
         }
     }
+#endif
 }

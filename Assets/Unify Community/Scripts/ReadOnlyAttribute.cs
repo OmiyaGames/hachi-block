@@ -3,6 +3,7 @@ using UnityEditor;
 
 namespace Community.UI
 {
+#if UNITY_EDITOR
     ///-----------------------------------------------------------------------
     /// <copyright file="ReadOnlyAttribute.cs">
     /// Code by andyman from Unity Answers:
@@ -42,4 +43,5 @@ namespace Community.UI
             return EditorGUI.GetPropertyHeight(property, label, true);
         }
     }
+#endif
 }
