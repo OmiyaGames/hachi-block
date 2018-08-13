@@ -80,7 +80,7 @@ namespace Project
         }
         #endregion
 
-        private void Start()
+        private void Awake()
         {
             originalLocation = transform.position;
             plane = new Plane(Vector3.back, originalLocation);

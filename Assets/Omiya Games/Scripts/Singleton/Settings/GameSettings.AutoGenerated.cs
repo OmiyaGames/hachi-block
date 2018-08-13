@@ -88,6 +88,7 @@
                         #region ISingleSettings from version 5
                         AllSettingsVersions[5].GetSetting("LastGameGrid"),
                         AllSettingsVersions[5].GetSetting("LastGamePreview"),
+                        AllSettingsVersions[5].GetSetting("LastGameInventory"),
                         AllSettingsVersions[5].GetSetting("LastGameNumberOfMoves"),
                         AllSettingsVersions[5].GetSetting("LastGameScore"),
                         #endregion
@@ -703,6 +704,21 @@
             set
             {
                 AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredStringGenerator>("LastGamePreview").SetValue(value, Settings, AppVersion);
+            }
+        }
+
+        /// <summary>
+        /// Encrypted String storing inventory.
+        /// </summary>
+        public string LastGameInventory
+        {
+            get
+            {
+                return AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredStringGenerator>("LastGameInventory").Value;
+            }
+            set
+            {
+                AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredStringGenerator>("LastGameInventory").SetValue(value, Settings, AppVersion);
             }
         }
 
