@@ -1989,7 +1989,7 @@ Prefab:
     - target: {fileID: 11491956, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
       propertyPath: backgroundMusic
       value: 
-      objectReference: {fileID: 8300000, guid: 8568696d4dc6d354da61b85428bb81a6, type: 3}
+      objectReference: {fileID: 8300000, guid: 8ca7e1c6266d9404a95005b45bfc2df4, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
   m_IsPrefabAsset: 0
