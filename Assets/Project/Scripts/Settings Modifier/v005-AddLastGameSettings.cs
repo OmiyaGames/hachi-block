@@ -25,7 +25,7 @@ namespace Project.Settings
             return new IGenerator[]
             {
             /////////////////////////////////////////////////////
-            // Keyboard Stuff
+            // Last Game Stuff
             /////////////////////////////////////////////////////
             new StoredStringGenerator("LastGameGrid", "")
             {
@@ -39,6 +39,13 @@ namespace Project.Settings
                 TooltipDocumentation = new string[]
                 {
                     "Encrypted String storing preview row."
+                }
+            },
+            new StoredStringGenerator("LastGameInventory", "")
+            {
+                TooltipDocumentation = new string[]
+                {
+                    "Encrypted String storing inventory."
                 }
             },
             new StoredIntGenerator("LastGameNumberOfMoves", 0)

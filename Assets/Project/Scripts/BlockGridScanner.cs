@@ -187,6 +187,30 @@ namespace Project
         }
         #endregion
 
+        public void Setup()
+        {
+            if(lastTopRowBlockIds == null)
+            {
+                // Create cache
+                lastTopRowBlockIds = new ulong[grid.Width];
+            }
+
+            // Go through the grid's top row
+            Block checkBlock;
+            for (int x = 0; x < grid.Width; ++x)
+            {
+                checkBlock = grid.Blocks[x, (grid.Height - 1)];
+                if (checkBlock == null)
+                {
+                    lastTopRowBlockIds[x] = Block.IdNull;
+                }
+                else
+                {
+                    lastTopRowBlockIds[x] = checkBlock.Id;
+                }
+            }
+        }
+
         public IEnumerator AnimateScan(InventoryCollection enable)
         {
             // Setup variables
@@ -288,25 +312,8 @@ namespace Project
                     }
                 }
             }
-            else
-            {
-                // Create cache
-                lastTopRowBlockIds = new ulong[grid.Width];
-            }
 
-            // Go through the grid's top row
-            for (int x = 0; x < grid.Width; ++x)
-            {
-                checkBlock = grid.Blocks[x, (grid.Height - 1)];
-                if (checkBlock == null)
-                {
-                    lastTopRowBlockIds[x] = Block.IdNull;
-                }
-                else
-                {
-                    lastTopRowBlockIds[x] = checkBlock.Id;
-                }
-            }
+            Setup();
         }
 
         private void UpdateScore(DiscoveredFormations formations, ref int comboCounter)

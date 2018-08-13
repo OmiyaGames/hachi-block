@@ -121,7 +121,7 @@ namespace Project
         }
         #endregion
 
-        private void Start()
+        private void Awake()
         {
             allBackgroundCells = new GameObject[Width * Height];
             for (int x = 0; x < Width; ++x)

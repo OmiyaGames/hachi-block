@@ -11,10 +11,25 @@ namespace Project
 
         readonly List<int> availableIndexes = new List<int>();
         readonly HashSet<Block.BlockType> blocksToAvoid = new HashSet<Block.BlockType>();
+        readonly Dictionary<Block.BlockType, Block> blockMap = new Dictionary<Block.BlockType, Block>();
 
-        // FIXME: create a second function that double-checks
-        // previous blocks in the grid, and makes sure it
-        // doesn't trigger a combo
+        public Block GetBlockPrefab(Block.BlockType type)
+        {
+            Block returnBlock = null;
+            if (type != Block.BlockType.Invalid)
+            {
+                if(blockMap.Count <= 0)
+                {
+                    foreach(Block block in allBlockTypes)
+                    {
+                        blockMap.Add(block.Type, block);
+                    }
+                }
+                returnBlock = blockMap[type];
+            }
+            return returnBlock;
+        }
+
         /// <summary>
         /// 
         /// </summary>

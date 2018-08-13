@@ -744,6 +744,7 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 4393559660765866}
+  - component: {fileID: 114062140596262806}
   m_Layer: 0
   m_Name: Grid
   m_TagString: Untagged
@@ -3175,6 +3176,24 @@ MonoBehaviour:
   m_FillAmount: 1
   m_FillClockwise: 1
   m_FillOrigin: 0
+--- !u!114 &114062140596262806
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 1418969531906202}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ade7ddf17b7fe66438aa488beac60304, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  grid: {fileID: 114098563205265520}
+  preview: {fileID: 114751610733790532}
+  inventory: {fileID: 114684203277466968}
+  allBlocks: {fileID: 114151327075227562, guid: 77500325c6a92d442912cf09fc52f068,
+    type: 2}
+  allDifficulties: {fileID: 114606241404410416, guid: 081c10e195b52bc4992bb65eac856268,
+    type: 2}
 --- !u!114 &114068416910696582
 MonoBehaviour:
   m_ObjectHideFlags: 1
