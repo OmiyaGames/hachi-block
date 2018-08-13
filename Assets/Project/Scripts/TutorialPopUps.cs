@@ -15,13 +15,14 @@ namespace Project
             [TextArea]
             string message;
             [SerializeField]
-            bool useScanner;
+            [UnityEngine.Serialization.FormerlySerializedAs("useScanner")]
+            bool needsFormatting;
             [SerializeField]
             int numMoves;
 
             public string GetMessage(BlockGridScanner scanner)
             {
-                if(useScanner == false)
+                if(needsFormatting == false)
                 {
                     return message;
                 }
