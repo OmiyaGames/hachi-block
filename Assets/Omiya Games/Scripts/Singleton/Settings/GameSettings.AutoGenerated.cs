@@ -17,6 +17,7 @@
             new OmiyaGames.Settings.AddLanguageSettings(),
             new Project.Settings.AddHighScores(),
             new Project.Settings.AddOptions(),
+            new Project.Settings.AddLastGameSettings(),
         };
 
         /// <summary>
@@ -82,6 +83,13 @@
                         AllSettingsVersions[4].GetSetting("Is Invincibility Mode Enabled"),
                         AllSettingsVersions[4].GetSetting("Custom Time Scale Option"),
                         AllSettingsVersions[4].GetSetting("Is Custom Time Scale Enabled"),
+                        #endregion
+
+                        #region ISingleSettings from version 5
+                        AllSettingsVersions[5].GetSetting("LastGameGrid"),
+                        AllSettingsVersions[5].GetSetting("LastGamePreview"),
+                        AllSettingsVersions[5].GetSetting("LastGameNumberOfMoves"),
+                        AllSettingsVersions[5].GetSetting("LastGameScore"),
                         #endregion
                     };
                 }
@@ -663,6 +671,68 @@
             get
             {
                 return Project.Settings.AddOptions.CustomTimeScale;
+            }
+        }
+        #endregion
+
+        #region Properties from AppVersion 5
+        /// <summary>
+        /// Encrypted String storing grid state.
+        /// </summary>
+        public string LastGameGrid
+        {
+            get
+            {
+                return AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredStringGenerator>("LastGameGrid").Value;
+            }
+            set
+            {
+                AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredStringGenerator>("LastGameGrid").SetValue(value, Settings, AppVersion);
+            }
+        }
+
+        /// <summary>
+        /// Encrypted String storing preview row.
+        /// </summary>
+        public string LastGamePreview
+        {
+            get
+            {
+                return AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredStringGenerator>("LastGamePreview").Value;
+            }
+            set
+            {
+                AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredStringGenerator>("LastGamePreview").SetValue(value, Settings, AppVersion);
+            }
+        }
+
+        /// <summary>
+        /// Number of moves made from the last game.
+        /// </summary>
+        public int LastGameNumberOfMoves
+        {
+            get
+            {
+                return AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredIntGenerator>("LastGameNumberOfMoves").Value;
+            }
+            set
+            {
+                AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredIntGenerator>("LastGameNumberOfMoves").SetValue(value, Settings, AppVersion);
+            }
+        }
+
+        /// <summary>
+        /// Score from last game.
+        /// </summary>
+        public int LastGameScore
+        {
+            get
+            {
+                return AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredIntGenerator>("LastGameScore").Value;
+            }
+            set
+            {
+                AllSettingsVersions[5].GetGenerator<OmiyaGames.Settings.StoredIntGenerator>("LastGameScore").SetValue(value, Settings, AppVersion);
             }
         }
         #endregion
