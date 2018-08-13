@@ -438,7 +438,7 @@ Prefab:
     - target: {fileID: 11491956, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
       propertyPath: backgroundMusic
       value: 
-      objectReference: {fileID: 8300000, guid: ef5c2db96fbf25c4e89d3a2c7e94eff7, type: 3}
+      objectReference: {fileID: 8300000, guid: 905fc48fd626b8d45b6bee353c2078e0, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: e6de9bbfd0f4a40efae8b92c0481a228, type: 2}
   m_IsPrefabAsset: 0
@@ -768,7 +768,7 @@ Prefab:
     - target: {fileID: 224809724297381430, guid: 268d5824041a1244187bab4917ec74b3,
         type: 2}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000029702887
+      value: 0.000016011907
       objectReference: {fileID: 0}
     - target: {fileID: 114658227689849132, guid: 268d5824041a1244187bab4917ec74b3,
         type: 2}
@@ -852,12 +852,12 @@ Prefab:
       objectReference: {fileID: 0}
     - target: {fileID: 22407980, guid: 268d5824041a1244187bab4917ec74b3, type: 2}
       propertyPath: m_SizeDelta.y
-      value: -199.10828
+      value: -198.04114
       objectReference: {fileID: 0}
     - target: {fileID: 224030540674267582, guid: 268d5824041a1244187bab4917ec74b3,
         type: 2}
       propertyPath: m_AnchorMin.y
-      value: 0
+      value: 0.000000059604645
       objectReference: {fileID: 0}
     - target: {fileID: 224030540674267582, guid: 268d5824041a1244187bab4917ec74b3,
         type: 2}
