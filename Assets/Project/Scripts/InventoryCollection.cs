@@ -59,6 +59,18 @@ namespace Project
             }
         }
 
+        private void Start()
+        {
+            if(LastGameSettings.Instance.RestoreInventorySettings() == false)
+            {
+                // Shuffle the inventory
+                foreach (Inventory inventory in AllInventories)
+                {
+                    inventory.Shuffle();
+                }
+            }
+        }
+
         public void ShuffleAll()
         {
             // Reset the cursor

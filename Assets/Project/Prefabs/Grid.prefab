@@ -3417,6 +3417,7 @@ MonoBehaviour:
     type: 2}
   difficulty: {fileID: 114606241404410416, guid: 081c10e195b52bc4992bb65eac856268,
     type: 2}
+  scanner: {fileID: 114300863145438022}
   blockLand: {fileID: 114322982363860580}
   blockPlop: {fileID: 114409223166672962}
   blockRemove: {fileID: 114833383098595462}
@@ -4398,8 +4399,6 @@ MonoBehaviour:
     staggerFormation: 0.035
     maxDelayBetweenComboAndElimination: 0.2
     maxDropWaitTime: 0.2
-  numMoves: 0
-  score: 0
 --- !u!114 &114308701745263272
 MonoBehaviour:
   m_ObjectHideFlags: 1

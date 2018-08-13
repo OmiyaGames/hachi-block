@@ -38,6 +38,8 @@ namespace Project
         BlockCollection allBlocks;
         [SerializeField]
         GameDifficulty difficulty;
+        [SerializeField]
+        BlockGridScanner scanner;
 
         [Header("Sounds")]
         [SerializeField]
@@ -121,7 +123,7 @@ namespace Project
         }
         #endregion
 
-        private void Awake()
+        private void Start()
         {
             allBackgroundCells = new GameObject[Width * Height];
             for (int x = 0; x < Width; ++x)
@@ -134,7 +136,11 @@ namespace Project
                 }
             }
 
-            AllBlocks.FillGrid(this, numRowsFilledOnStart, StartingNumberOfBlockTypes, difficulty.BlocksInARow);
+            if(LastGameSettings.Instance.RestoreGridSettings() == false)
+            {
+                AllBlocks.FillGrid(this, numRowsFilledOnStart, StartingNumberOfBlockTypes, difficulty.BlocksInARow);
+            }
+            scanner.Setup();
         }
 
         /// <summary>

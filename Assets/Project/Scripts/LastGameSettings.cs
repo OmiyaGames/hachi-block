@@ -84,6 +84,76 @@ namespace Project
             Settings.SaveSettings();
         }
 
+        public bool RestoreGridSettings()
+        {
+            bool isRestored = false;
+            if(string.IsNullOrEmpty(Settings.LastGameInventory) == false)
+            {
+                Block block;
+                int s = 0;
+                for (int x = 0; x < grid.Width; ++x)
+                {
+                    for (int y = 0; y < grid.Height; ++y)
+                    {
+                        // Decrypt block
+                        block = DecryptBlock(Settings.LastGameGrid[s]);
+                        ++s;
+
+                        // Update grid
+                        if(block == null)
+                        {
+                            grid.RemoveBlock(x, y);
+                        }
+                        else
+                        {
+                            grid.CreateBlock(block, x, y);
+                        }
+                    }
+                }
+                isRestored = true;
+            }
+            return isRestored;
+        }
+
+        public bool RestorePreviewSettings()
+        {
+            bool isRestored = false;
+            if (string.IsNullOrEmpty(Settings.LastGamePreview) == false)
+            {
+                for (int x = 0; x < Settings.LastGamePreview.Length; ++x)
+                {
+                    preview.Cells[x].Block = DecryptBlock(Settings.LastGamePreview[x]);
+                }
+                isRestored = true;
+            }
+            return isRestored;
+        }
+
+        public bool RestoreInventorySettings()
+        {
+            bool isRestored = false;
+            if (string.IsNullOrEmpty(Settings.LastGameInventory) == false)
+            {
+                int s = 0;
+                foreach (Inventory item in inventory.AllInventories)
+                {
+                    item.TopLeftBlock = DecryptBlock(Settings.LastGameInventory[s]);
+                    ++s;
+
+                    item.TopRightBlock = DecryptBlock(Settings.LastGameInventory[s]);
+                    ++s;
+
+                    item.BottomLeftBlock = DecryptBlock(Settings.LastGameInventory[s]);
+                    ++s;
+
+                    item.BottomRightBlock = DecryptBlock(Settings.LastGameInventory[s]);
+                    ++s;
+                }
+                isRestored = true;
+            }
+            return isRestored;
+        }
+
         private void SaveInventory(System.Text.StringBuilder builder)
         {
             Block block;
@@ -158,15 +228,17 @@ namespace Project
 
         private char Encrypt(Block.BlockType type)
         {
-            int convertTo = (int)type;
-            convertTo += conversionBuffer;
-            return (char)convertTo;
+            return (char)(((int)type) + conversionBuffer);
+        }
+
+        private Block DecryptBlock(char type)
+        {
+            return allBlocks.GetBlockPrefab(Decrypt(type));
         }
 
         private Block.BlockType Decrypt(char type)
         {
-            int convertTo = (type - conversionBuffer);
-            return (Block.BlockType)convertTo;
+            return (Block.BlockType)(type - conversionBuffer);
         }
     }
 }
