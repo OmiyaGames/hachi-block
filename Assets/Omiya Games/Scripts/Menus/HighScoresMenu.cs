@@ -16,7 +16,6 @@ namespace OmiyaGames.Menu
         TMPro.TextMeshProUGUI noRecordsRow;
 
         TopRecordRow[] allBestScoreEntries = null;
-        TopRecordRow[] allBestTimeEntries = null;
 
         public TopRecordRow[] AllBestScoreEntries
         {

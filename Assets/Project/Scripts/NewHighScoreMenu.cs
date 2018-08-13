@@ -22,7 +22,6 @@ namespace Project
         [SerializeField]
         TextMeshProUGUI scoreLabel;
 
-        IRecord<int> newScore = null;
         string originalScorePlacementText = null;
         string originalScoreText = null;
 
@@ -66,16 +65,23 @@ namespace Project
                 return nameField.text;
             }
         }
+
+        public IRecord<int> NewScore
+        {
+            get;
+            set;
+        } = null;
         #endregion
 
-        public void Setup(int highScorePlacement, IRecord<int> newScore)
+        public void Setup(int highScorePlacement, IRecord<int> score)
         {
-            scorePlacementLabel.gameObject.SetActive(newScore != null);
-            scoreLabel.gameObject.SetActive(newScore != null);
-            if (newScore != null)
+            NewScore = score;
+            scorePlacementLabel.gameObject.SetActive(NewScore != null);
+            scoreLabel.gameObject.SetActive(NewScore != null);
+            if (NewScore != null)
             {
                 UpdateLabel(scorePlacementLabel, (highScorePlacement + 1).ToString(), ref originalScorePlacementText);
-                UpdateLabel(scoreLabel, newScore.Record.ToString(), ref originalScoreText);
+                UpdateLabel(scoreLabel, NewScore.Record.ToString(), ref originalScoreText);
             }
         }
 
@@ -83,7 +89,6 @@ namespace Project
         {
             if (IsListeningToEvents == true)
             {
-                // FIXME: Notify the player that they'll lose their unsaved progress.
                 RecordNewHighScore();
 
                 // Transition to the current level
@@ -111,9 +116,9 @@ namespace Project
         private void RecordNewHighScore()
         {
             // Record the new name!
-            if (newScore != null)
+            if (NewScore != null)
             {
-                newScore.Name = nameField.text;
+                NewScore.Name = nameField.text;
             }
 
             // Store this name for the next gameplay as well
