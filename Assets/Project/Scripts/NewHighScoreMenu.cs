@@ -4,6 +4,7 @@ using OmiyaGames;
 using OmiyaGames.Menu;
 using OmiyaGames.Settings;
 using System;
+using TMPro;
 
 namespace Project
 {
@@ -11,29 +12,25 @@ namespace Project
     {
         [Header("Common Settings")]
         [SerializeField]
-        [UnityEngine.Serialization.FormerlySerializedAs("showBackground")]
-        protected BackgroundMenu.BackgroundType background = BackgroundMenu.BackgroundType.SolidColor;
+        BackgroundMenu.BackgroundType background = BackgroundMenu.BackgroundType.SolidColor;
         [SerializeField]
         MenuNavigator navigator;
 
         [Header("Buttons")]
         [SerializeField]
-        protected Button defaultButton = null;
+        Button defaultButton = null;
         [SerializeField]
-        InputField nameField;
+        TMP_InputField nameField;
 
         [Header("Labels")]
         [SerializeField]
-        Text scorePlacementLabel;
+        TextMeshProUGUI scorePlacementLabel;
         [SerializeField]
-        Text scoreLabel;
+        TextMeshProUGUI scoreLabel;
 
         IRecord<int> newScore = null;
         string originalScorePlacementText = null;
         string originalScoreText = null;
-        IRecord<float> newTime = null;
-        string originalTimePlacementText = null;
-        string originalTimeText = null;
 
         #region Non-abstract Properties
         public override BackgroundMenu.BackgroundType Background
@@ -99,11 +96,6 @@ namespace Project
             {
                 newScore = checkScore;
             }
-            newTime = null;
-            if ((timePlacement >= 0) && (checkTime != null))
-            {
-                newTime = checkTime;
-            }
 
             scorePlacementLabel.gameObject.SetActive(newScore != null);
             scoreLabel.gameObject.SetActive(newScore != null);
@@ -129,10 +121,6 @@ namespace Project
                 {
                     newScore.Name = nameField.text;
                 }
-                if (newTime != null)
-                {
-                    newTime.Name = nameField.text;
-                }
 
                 // Store this name for the next gameplay as well
                 Settings.LastEnteredName = nameField.text;
@@ -142,7 +130,7 @@ namespace Project
             base.OnStateChanged(from, to);
         }
 
-        private void UpdateLabel(Text label, string info, ref string originalString)
+        private void UpdateLabel(TextMeshProUGUI label, string info, ref string originalString)
         {
             if(string.IsNullOrEmpty(originalString) == true)
             {
