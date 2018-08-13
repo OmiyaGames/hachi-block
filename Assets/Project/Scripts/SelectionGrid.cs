@@ -135,7 +135,7 @@ namespace Project
             // Update the cursor and inventory
             CurrentlySelectedSelector.SetHovered(false);
             inventories.HoveredInventory = null;
-            cursor.Deselect();
+            cursor.HideCursor(BlockCursor.SoundType.Drop);
 
             // Scan for any formations
             StartCoroutine(scanner.AnimateScan(inventories));

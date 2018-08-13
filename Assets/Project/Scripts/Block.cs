@@ -3,6 +3,7 @@ using Community.UI;
 using OmiyaGames;
 using System;
 using OmiyaGames.Global;
+using OmiyaGames.Audio;
 
 namespace Project
 {
@@ -135,6 +136,16 @@ namespace Project
                         everyFrame = new Action<float>(AnimateFalling);
                         Singleton.Instance.OnUpdate += everyFrame;
                     }
+                    else if(state == State.Combo)
+                    {
+                        Play(PopSound);
+                        Stop(LandSound);
+                    }
+                    else if (state == State.Eliminated)
+                    {
+                        Play(RemoveSound);
+                        Stop(LandSound);
+                    }
                 }
             }
         }
@@ -163,6 +174,24 @@ namespace Project
             {
                 return symbol;
             }
+        }
+
+        public SoundEffect LandSound
+        {
+            get;
+            set;
+        }
+
+        public SoundEffect PopSound
+        {
+            get;
+            set;
+        }
+
+        public SoundEffect RemoveSound
+        {
+            get;
+            set;
         }
         #endregion
 
@@ -238,12 +267,29 @@ namespace Project
                     // If the object falls below the target position, snap to it
                     CurrentState = State.Idle;
                     transform.position = targetPosition;
+                    Play(LandSound);
                 }
             }
             else
             {
                 // If the object is at an invalid location, set to idle
                 CurrentState = State.Idle;
+            }
+        }
+
+        private static void Play(SoundEffect sound)
+        {
+            if(sound != null)
+            {
+                sound.Play();
+            }
+        }
+
+        private static void Stop(SoundEffect sound)
+        {
+            if (sound != null)
+            {
+                sound.Stop();
             }
         }
     }
