@@ -1198,6 +1198,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   grid: {fileID: 114608865836827362}
   blocksInARow: 3
+  numBlocksToDrop: 4
   baseScore: 3
   scoreForExtraBlocks: 1
   incrementMultiplierPerComboBy: 0.5
@@ -1483,7 +1484,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.70625854, b: 0.29703632, a: 0.5019608}
+  m_Color: {r: 0.882353, g: 0.5529412, b: 0.47450984, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1510,7 +1511,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.70625854, b: 0.29703632, a: 0.5019608}
+  m_Color: {r: 0.882353, g: 0.5529412, b: 0.47450984, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1537,7 +1538,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.70625854, b: 0.29703632, a: 0.5019608}
+  m_Color: {r: 0.882353, g: 0.5529412, b: 0.47450984, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -1617,6 +1618,7 @@ MonoBehaviour:
     type: 2}
   cursor: {fileID: 114644571116447880}
   collection: {fileID: 114457136182919708}
+  grid: {fileID: 114608865836827362}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -1792,6 +1794,7 @@ MonoBehaviour:
     type: 2}
   cursor: {fileID: 0}
   collection: {fileID: 0}
+  grid: {fileID: 114608865836827362}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -1952,6 +1955,7 @@ MonoBehaviour:
     type: 2}
   cursor: {fileID: 114644571116447880}
   collection: {fileID: 114457136182919708}
+  grid: {fileID: 114608865836827362}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -2038,7 +2042,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.70625854, b: 0.29703632, a: 0.5019608}
+  m_Color: {r: 0.882353, g: 0.5529412, b: 0.47450984, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2206,7 +2210,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 0.8396226, g: 0.70625854, b: 0.29703632, a: 0.5019608}
+  m_Color: {r: 0.882353, g: 0.5529412, b: 0.47450984, a: 0.5019608}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -2284,8 +2288,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   width: 18
   height: 14
-  numRowsFilledOnStart: 5
-  startingNumberOfBlockTypes: 3
+  numRowsFilledOnStart: 4
+  startingNumberOfBlockTypes: 4
   cellLength: 1
   gizmoColor: {r: 0, g: 1, b: 1, a: 1}
   gridBackgroundParent: {fileID: 4287449006939572}
@@ -2336,6 +2340,7 @@ MonoBehaviour:
     type: 2}
   cursor: {fileID: 114644571116447880}
   collection: {fileID: 114457136182919708}
+  grid: {fileID: 114608865836827362}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -2594,6 +2599,7 @@ MonoBehaviour:
     type: 2}
   cursor: {fileID: 114644571116447880}
   collection: {fileID: 114457136182919708}
+  grid: {fileID: 114608865836827362}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}
@@ -2699,6 +2705,7 @@ MonoBehaviour:
     type: 2}
   cursor: {fileID: 114644571116447880}
   collection: {fileID: 114457136182919708}
+  grid: {fileID: 114608865836827362}
   topLeftBlock: {fileID: 0}
   topRightBlock: {fileID: 0}
   bottomLeftBlock: {fileID: 0}

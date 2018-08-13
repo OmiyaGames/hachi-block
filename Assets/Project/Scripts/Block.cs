@@ -16,7 +16,9 @@ namespace Project
             Light,
             Dark,
             Strange,
-            Quartz
+            Quartz,
+            Lift,
+            Drop
         }
 
         public enum State
