@@ -115,6 +115,8 @@ namespace Project
         TMPro.TextMeshProUGUI movesLabel;
         [SerializeField]
         GameDifficulty gameSettings;
+        [SerializeField]
+        PreviewRow previewRow;
 
         [Header("Scoring")]
         [SerializeField]
@@ -175,6 +177,14 @@ namespace Project
                 return gameSettings.BlocksInARow;
             }
         }
+
+        public int NumBlocksToDrop
+        {
+            get
+            {
+                return numBlocksToDrop;
+            }
+        }
         #endregion
 
         public IEnumerator AnimateScan(InventoryCollection enable)
@@ -187,7 +197,7 @@ namespace Project
             enable.IsAllEnabled = false;
 
             // Drop blocks first; let them contribute to the combos
-            DropNewBlocks(numBlocksToDrop);
+            DropNewBlocks();
             yield return StartCoroutine(AnimateBlocksDropping());
 
             // Scan for any formations
@@ -345,29 +355,25 @@ namespace Project
         /// 
         /// </summary>
         /// <returns></returns>
-        private int DropNewBlocks(int numBlocksToDrop)
+        private int DropNewBlocks()
         {
             // FIXME: the argument should take in an array
             ++NumMoves;
 
-            Block[] row = new Block[grid.Width];
-
-            for (int x = 0; x < numBlocksToDrop; ++x)
-            {
-                row[x] = grid.AllBlocks.RandomBlockPrefab(grid.StartingNumberOfBlockTypes);
-            }
-            Utility.ShuffleList<Block>(row, numBlocksToDrop);
-
             // Actually drop blocks
+            Block preview, gridBlock;
             for (int x = 0; x < grid.Width; ++x)
             {
                 // Make sure the row to drop blocks contains a block,
                 // and the grid has an empty cell
-                if ((row[x] != null) && (grid.Blocks[x, (grid.Height - 1)] == null))
+                preview = previewRow.Cells[x].Block;
+                gridBlock = grid.Blocks[x, (grid.Height - 1)];
+                if ((preview != null) && (gridBlock == null))
                 {
-                    grid.CreateBlock(row[x], x, (grid.Height - 1));
+                    grid.CreateBlock(preview, x, (grid.Height - 1));
                 }
             }
+            previewRow.Shuffle();
             return NumMoves;
         }
 
