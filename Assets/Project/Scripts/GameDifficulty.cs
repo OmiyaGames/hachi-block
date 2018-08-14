@@ -34,7 +34,7 @@ namespace Project
             Difficulty difficulty = null;
             foreach(Difficulty nextDifficulty in allDifficulties)
             {
-                scoreSum = nextDifficulty.scoreThreshold;
+                scoreSum += nextDifficulty.scoreThreshold;
                 difficulty = nextDifficulty;
                 if(score < scoreSum)
                 {
