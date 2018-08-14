@@ -1,4 +1,52 @@
-* Image "Company Splash Logo.png" is under Copyright (c) 2014 Omiya Games.
+* Sound Effect "shuffle.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "remove.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "plop4.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "plop3.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "plop2.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "plop1.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "placeBlock.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "hit2.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "hit.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "cancel.wav" is under Copyright (c) 2018 Omiya Games.
+
+------------------------------------------
+
+* Sound Effect "soundEffectTest.wav" is under Public Domain.
+
+------------------------------------------
+
+* Sound Effect "sceneTransition.wav" is under Public Domain.
+
+------------------------------------------
+
+* Image "Company Splash Logo.png" is under Copyright (c) 2014-2018 Omiya Games.
 
 ------------------------------------------
 
