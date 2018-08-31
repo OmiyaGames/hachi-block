@@ -927,7 +927,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   mixerRangeDb: {x: -40, y: 0}
-  muteVolumeDb: -40
+  muteVolumeDb: -80
   mixer: {fileID: 24100000, guid: 63a239bdfb2dd4519b121d21aa1ed3fb, type: 2}
   backgroundMusicVolume:
   - Music Volume
